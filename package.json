@@ -1,0 +1,46 @@
+{
+  "name": "eco-web-agency",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Eco Web Agency - Sustainable digital solutions for modern businesses. Specializing in web development, SEO, branding, and digital marketing.",
+  "type": "module",
+  "author": "Eco Web Agency",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/eco-web-agency.git"
+  },
+  "homepage": "https://ecowebagency.com",
+  "keywords": [
+    "web-agency",
+    "digital-marketing",
+    "seo",
+    "web-development",
+    "branding",
+    "sustainable-business"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && echo 'Build complete! Deploy the dist/ folder to Netlify.'"
+  },
+  "dependencies": {
+    "@google/genai": "^1.30.0",
+    "@tailwindcss/postcss": "^4.1.17",
+    "lucide-react": "^0.555.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
