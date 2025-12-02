@@ -174,6 +174,19 @@ export default function Header() {
             </NavLink>
 
             <NavLink
+              to="/calculators"
+              className={({ isActive }) =>
+                `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  isActive
+                    ? 'text-eco-700 bg-eco-50'
+                    : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                }`
+              }
+            >
+              Eco Calculators
+            </NavLink>
+
+            <NavLink
               to="/contact"
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
@@ -311,6 +324,20 @@ export default function Header() {
                 }
               >
                 Blog
+              </NavLink>
+
+              <NavLink
+                to="/calculators"
+                onClick={closeMobileMenu}
+                className={({ isActive }) =>
+                  `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'text-eco-700 bg-eco-50'
+                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                  }`
+                }
+              >
+                Eco Calculators
               </NavLink>
 
               <NavLink
