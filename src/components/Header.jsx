@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { useLanguage } from '../contexts/LanguageContext'
 import { Menu, X, ChevronDown, Leaf } from 'lucide-react'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Header() {
+  const { language, isSwedish } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
@@ -23,14 +26,38 @@ export default function Header() {
   }
 
   // Services menu items
-  const servicesItems = [
-    { name: 'SEO', path: '/services/seo' },
-    { name: 'Web Development', path: '/services/web-development' },
-    { name: 'Branding & Graphic Design', path: '/services/branding' },
-    { name: 'Ads & Performance Marketing', path: '/services/ads' },
-    { name: 'Social Media Management', path: '/services/social-media' },
-    { name: 'Custom Software / AI Tools', path: '/services/custom-software' },
-  ]
+  const servicesItems = isSwedish
+    ? [
+        { name: 'SEO', path: '/services/seo' },
+        { name: 'Webbutveckling', path: '/services/web-development' },
+        { name: 'Varumärkesdesign', path: '/services/branding' },
+        { name: 'Performance Marketing', path: '/services/ads' },
+        { name: 'Social Media Management', path: '/services/social-media' },
+        { name: 'Custom Software / AI Tools', path: '/services/custom-software' },
+      ]
+    : [
+        { name: 'SEO', path: '/services/seo' },
+        { name: 'Web Development', path: '/services/web-development' },
+        { name: 'Branding & Graphic Design', path: '/services/branding' },
+        { name: 'Ads & Performance Marketing', path: '/services/ads' },
+        { name: 'Social Media Management', path: '/services/social-media' },
+        { name: 'Custom Software / AI Tools', path: '/services/custom-software' },
+      ]
+
+  // Main navigation items
+  const navItems = isSwedish
+    ? [
+        { name: 'Tjänster', path: '/services' },
+        { name: 'Portfolio', path: '/portfolio' },
+        { name: 'Om oss', path: '/about' },
+        { name: 'Kontakt', path: '/contact' },
+      ]
+    : [
+        { name: 'Services', path: '/services' },
+        { name: 'Portfolio', path: '/portfolio' },
+        { name: 'About', path: '/about' },
+        { name: 'Contact', path: '/contact' },
+      ]
 
   return (
     <header
@@ -56,7 +83,7 @@ export default function Header() {
                 Eco Web Agency
               </h1>
               <p className="text-xs text-slate-600 leading-tight">
-                Sustainable Digital Growth for Modern Businesses
+                {isSwedish ? 'Hållbar Digital Tillväxt för Moderna Företag' : 'Sustainable Digital Growth for Modern Businesses'}
               </p>
             </div>
             <div className="block sm:hidden">
@@ -78,21 +105,24 @@ export default function Header() {
                 }`
               }
             >
-              Home
+              {isSwedish ? 'Hem' : 'Home'}
             </NavLink>
 
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                  isActive
-                    ? 'text-eco-700 bg-eco-50'
-                    : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
-                }`
-              }
-            >
-              About
-            </NavLink>
+            {navItems.map((item, index) => (
+              <NavLink
+                key={index}
+                to={item.path}
+                className={({ isActive }) =>
+                  `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'text-eco-700 bg-eco-50'
+                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
+            ))}
 
             {/* Services Dropdown */}
             <div
@@ -200,11 +230,12 @@ export default function Header() {
             </NavLink>
 
             {/* CTA Button */}
+            <LanguageSwitcher />
             <Link
               to="/quote"
               className="ml-4 px-6 py-2.5 bg-eco-600 text-white rounded-lg text-sm font-semibold hover:bg-eco-700 transform hover:scale-105 transition-all duration-200 shadow-lg shadow-eco-600/30 hover:shadow-eco-700/40"
             >
-              Request a Quote
+              {isSwedish ? 'Be om offert' : 'Request a Quote'}
             </Link>
           </nav>
 
@@ -226,33 +257,27 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="lg:hidden pb-6 animate-in slide-in-from-top duration-200">
             <div className="flex flex-col space-y-2">
-              <NavLink
-                to="/"
-                onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
-                    isActive
-                      ? 'text-eco-700 bg-eco-50'
-                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
-                  }`
-                }
-              >
-                Home
-              </NavLink>
+              {/* Add language switcher for mobile */}
+              <div className="px-4 py-3">
+                <LanguageSwitcher />
+              </div>
 
-              <NavLink
-                to="/about"
-                onClick={closeMobileMenu}
-                className={({ isActive }) =>
-                  `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
-                    isActive
-                      ? 'text-eco-700 bg-eco-50'
-                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
-                  }`
-                }
-              >
-                About
-              </NavLink>
+              {navItems.map((item, index) => (
+                <NavLink
+                  key={index}
+                  to={item.path}
+                  onClick={closeMobileMenu}
+                  className={({ isActive }) =>
+                    `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
+                      isActive
+                        ? 'text-eco-700 bg-eco-50'
+                        : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                    }`
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              ))}
 
               {/* Mobile Services Section */}
               <div>
@@ -260,7 +285,7 @@ export default function Header() {
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
                   className="w-full px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:text-eco-700 hover:bg-eco-50 transition-colors duration-200 flex items-center justify-between"
                 >
-                  <span>Services</span>
+                  <span>{isSwedish ? 'Tjänster' : 'Services'}</span>
                   <ChevronDown
                     className={`w-5 h-5 transition-transform duration-200 ${
                       isServicesOpen ? 'rotate-180' : ''
@@ -360,7 +385,7 @@ export default function Header() {
                 onClick={closeMobileMenu}
                 className="mx-4 mt-4 px-6 py-3 bg-eco-600 text-white rounded-lg text-base font-semibold hover:bg-eco-700 transition-colors duration-200 shadow-lg shadow-eco-600/30 text-center"
               >
-                Request a Quote
+                {isSwedish ? 'Be om offert' : 'Request a Quote'}
               </Link>
             </div>
           </nav>

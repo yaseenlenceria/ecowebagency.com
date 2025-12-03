@@ -1,392 +1,276 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../contexts/LanguageContext'
+import { seoContent } from '../data/seoContent'
 import {
   Search,
   Code,
   Palette,
   TrendingUp,
+  ArrowRight,
+  CheckCircle,
+  Leaf,
+  Target,
+  BarChart,
+  Globe,
   Award,
   Users,
-  Target,
-  Leaf,
-  BarChart,
-  CheckCircle,
-  ArrowRight,
-  Sparkles,
 } from 'lucide-react'
 
 export default function HomePage() {
-  // What We Do services
-  const services = [
-    {
-      icon: Search,
-      title: 'SEO & Organic Visibility',
-      description:
-        'Dominate search rankings with data-driven SEO strategies. We help your business get found by the right customers at the right time.',
-      link: '/services/seo',
-      color: 'bg-blue-50 text-blue-600',
-    },
-    {
-      icon: Code,
-      title: 'Web Development & Custom Websites',
-      description:
-        'Beautiful, fast, and conversion-optimized websites built with modern technologies. From landing pages to complex web applications.',
-      link: '/services/web-development',
-      color: 'bg-purple-50 text-purple-600',
-    },
-    {
-      icon: Palette,
-      title: 'Branding & Graphic Design',
-      description:
-        'Stand out with compelling visual identity. Professional branding, logo design, and graphic assets that capture your unique story.',
-      link: '/services/branding',
-      color: 'bg-pink-50 text-pink-600',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Ads & Performance Marketing',
-      description:
-        'ROI-focused advertising campaigns across Google, Meta, and LinkedIn. Every dollar invested is tracked and optimized for maximum return.',
-      link: '/services/ads',
-      color: 'bg-orange-50 text-orange-600',
-    },
-  ]
+  const { language, isSwedish, isEnglish } = useLanguage()
+  const content = seoContent.homepage
 
-  // Why Choose Us values
-  const values = [
-    {
-      icon: Award,
-      title: '7+ Years of Excellence',
-      description: 'Proven track record delivering results for businesses of all sizes.',
-    },
-    {
-      icon: BarChart,
-      title: 'Transparent Reporting',
-      description: 'Real-time dashboards and monthly reports so you always know where you stand.',
-    },
-    {
-      icon: Users,
-      title: 'In-House Expert Team',
-      description: 'No outsourcing. Work directly with our skilled professionals.',
-    },
-    {
-      icon: Target,
-      title: 'Long-Term Strategy',
-      description: 'We focus on sustainable growth, not quick fixes.',
-    },
-    {
-      icon: Leaf,
-      title: 'Eco-Friendly Practices',
-      description: 'Carbon-neutral hosting and sustainable digital solutions.',
-    },
-  ]
+  // Icon mapping for services
+  const serviceIcons = {
+    'SEO Byrå Sverige': Search,
+    'SEO Agency Sweden': Search,
+    'Webbdesign Företag': Code,
+    'Web Design Company': Code,
+    'Performance Marketing': TrendingUp,
+    'Performance Marketing': TrendingUp,
+    'Varumärkesdesign': Palette,
+    'Brand Design': Palette,
+  }
 
-  // Portfolio preview items
-  const portfolioItems = [
-    {
-      id: 1,
-      title: 'E-Commerce Revolution',
-      category: 'Web Development',
-      image: 'bg-gradient-to-br from-blue-400 to-blue-600',
-      results: '+350% Revenue Growth',
-    },
-    {
-      id: 2,
-      title: 'Brand Transformation',
-      category: 'Branding',
-      image: 'bg-gradient-to-br from-purple-400 to-purple-600',
-      results: 'Complete Rebrand',
-    },
-    {
-      id: 3,
-      title: 'SEO Domination',
-      category: 'SEO',
-      image: 'bg-gradient-to-br from-green-400 to-green-600',
-      results: '+520% Organic Traffic',
-    },
-    {
-      id: 4,
-      title: 'SaaS Launch',
-      category: 'Custom Software',
-      image: 'bg-gradient-to-br from-orange-400 to-orange-600',
-      results: '10K+ Active Users',
-    },
-    {
-      id: 5,
-      title: 'Social Media Success',
-      category: 'Social Media',
-      image: 'bg-gradient-to-br from-pink-400 to-pink-600',
-      results: '250K+ Followers',
-    },
-    {
-      id: 6,
-      title: 'Performance Ads',
-      category: 'Ads',
-      image: 'bg-gradient-to-br from-red-400 to-red-600',
-      results: '8.5x ROAS',
-    },
-  ]
+  // Icon mapping for why choose us section
+  const valueIcons = {
+    '🌱': Leaf,
+    '🎯': Target,
+    '📊': BarChart,
+    '🤝': Users,
+  }
+
+  const meta = seoContent.meta[language]
+  const hero = content.hero[language]
+  const services = content.services[language]
+  const whyChooseUs = content.whyChooseUs[language]
+  const stats = content.stats[language]
+  const cta = seoContent.cta[language]
+
+  // Update page title and meta
+  React.useEffect(() => {
+    document.title = meta.title
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription) {
+      metaDescription.setAttribute('content', meta.description)
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]')
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', meta.keywords)
+    }
+  }, [language, meta])
 
   return (
-    <div className="bg-stone-50">
+    <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-eco-50 via-white to-blue-50 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-slate-900/[0.04] [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.5))]" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center space-x-2 bg-eco-100 text-eco-800 px-4 py-2 rounded-full text-sm font-medium mb-6 animate-in fade-in slide-in-from-top-4 duration-700">
-              <Sparkles className="w-4 h-4" />
-              <span>Award-Winning Digital Agency</span>
-            </div>
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />
 
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight animate-in fade-in slide-in-from-top-6 duration-700 delay-100">
-              Sustainable Digital Growth for{' '}
-              <span className="text-eco-600 relative">
-                Modern Businesses
-                <svg
-                  className="absolute -bottom-2 left-0 w-full h-3 text-eco-300"
-                  viewBox="0 0 100 10"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M0,5 Q25,0 50,5 T100,5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </span>
-            </h1>
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl" />
 
-            <p className="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-top-8 duration-700 delay-200">
-              We help ambitious companies dominate their markets with premium web development,
-              data-driven SEO, and high-performance marketing strategies that deliver real,
-              measurable results.
-            </p>
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+          <div className="mb-8">
+            <span className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium mb-6">
+              <Leaf className="w-4 h-4 mr-2" />
+              {isSwedish ? 'Hållbara Digitala Lösningar' : 'Sustainable Digital Solutions'}
+            </span>
+          </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-in fade-in slide-in-from-top-10 duration-700 delay-300">
-              <Link
-                to="/quote"
-                className="w-full sm:w-auto px-8 py-4 bg-eco-600 text-white rounded-lg text-lg font-semibold hover:bg-eco-700 transform hover:scale-105 transition-all duration-200 shadow-xl shadow-eco-600/30 hover:shadow-eco-700/40 flex items-center justify-center space-x-2"
-              >
-                <span>Get Your Free Quote</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                to="/portfolio"
-                className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 rounded-lg text-lg font-semibold hover:bg-slate-50 transition-all duration-200 shadow-lg border border-slate-200 flex items-center justify-center space-x-2"
-              >
-                <span>View Our Work</span>
-              </Link>
-            </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+            {hero.title}
+          </h1>
 
-            {/* Social Proof */}
-            <div className="mt-12 pt-8 border-t border-slate-200 animate-in fade-in duration-700 delay-500">
-              <p className="text-sm text-slate-500 mb-4">Trusted by leading brands</p>
-              <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-                <div className="text-slate-400 font-bold text-xl">BRAND</div>
-                <div className="text-slate-400 font-bold text-xl">COMPANY</div>
-                <div className="text-slate-400 font-bold text-xl">BUSINESS</div>
-                <div className="text-slate-400 font-bold text-xl">ENTERPRISE</div>
-              </div>
-            </div>
+          <p className="text-xl sm:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+            {hero.subtitle}
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/quote"
+              className="inline-flex items-center px-8 py-4 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              {cta.primary}
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
+
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center px-8 py-4 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all duration-200"
+            >
+              {cta.secondary}
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* What We Do Section */}
-      <section className="py-20 lg:py-28 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              What We Do
+      {/* Services Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              {services.title}
             </h2>
-            <p className="text-lg text-slate-600">
-              Comprehensive digital solutions designed to accelerate your business growth
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              {services.subtitle}
             </p>
           </div>
 
-          {/* Service Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {services.items.map((service, index) => {
+              const IconComponent = serviceIcons[service.title] || Globe
               return (
                 <Link
                   key={index}
-                  to={service.link}
-                  className="group bg-white rounded-2xl p-8 border-2 border-slate-100 hover:border-eco-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  to="/services"
+                  className="group p-8 bg-gray-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <div className={`w-14 h-14 rounded-xl ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-eco-700 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed mb-4">{service.description}</p>
-                  <div className="flex items-center text-eco-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                    <span>Learn More</span>
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                  <div className="flex items-start space-x-4">
+                    <div className="p-3 bg-emerald-100 rounded-lg group-hover:bg-emerald-200 transition-colors">
+                      <IconComponent className="w-6 h-6 text-emerald-700" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-emerald-700 transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 mb-4 leading-relaxed">
+                        {service.description}
+                      </p>
+                      <ul className="space-y-2">
+                        {service.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                            <CheckCircle className="w-4 h-4 text-emerald-600 mr-2 flex-shrink-0" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </Link>
               )
             })}
           </div>
-
-          {/* View All Services CTA */}
-          <div className="text-center mt-12">
-            <Link
-              to="/services"
-              className="inline-flex items-center space-x-2 px-8 py-3 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg"
-            >
-              <span>View All Services</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-eco-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Why Choose Eco Web Agency
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              {whyChooseUs.title}
             </h2>
-            <p className="text-lg text-slate-600">
-              We're not just another agency. We're your long-term growth partner.
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              {whyChooseUs.subtitle}
             </p>
           </div>
 
-          {/* Values Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {values.map((value, index) => {
-              const Icon = value.icon
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {whyChooseUs.reasons.map((reason, index) => {
+              const IconComponent = valueIcons[reason.icon] || Award
               return (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-eco-100 text-eco-600 flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6" />
+                <div key={index} className="text-center group">
+                  <div className="mb-6 flex justify-center">
+                    <div className="p-4 bg-white rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow">
+                      <div className="text-4xl mb-2">{reason.icon}</div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{value.title}</h3>
-                  <p className="text-slate-600">{value.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {reason.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {reason.description}
+                  </p>
                 </div>
               )
             })}
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto bg-white rounded-2xl p-8 shadow-lg">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-eco-600 mb-2">150+</div>
-              <div className="text-slate-600 text-sm">Happy Clients</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-eco-600 mb-2">7+</div>
-              <div className="text-slate-600 text-sm">Years Experience</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-eco-600 mb-2">500+</div>
-              <div className="text-slate-600 text-sm">Projects Delivered</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-eco-600 mb-2">98%</div>
-              <div className="text-slate-600 text-sm">Client Retention</div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Portfolio Preview Section */}
-      <section className="py-20 lg:py-28 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Results That Speak for Themselves
+      {/* Stats Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              {stats.title}
             </h2>
-            <p className="text-lg text-slate-600">
-              Real projects. Real results. See what we've achieved for our clients.
+            <p className="text-xl text-gray-600">
+              {stats.subtitle}
             </p>
           </div>
 
-          {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioItems.map((item) => (
-              <Link
-                key={item.id}
-                to="/portfolio"
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-              >
-                <div className={`aspect-[4/3] ${item.image} relative`}>
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-
-                  {/* Content */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                    <div className="text-sm font-medium text-eco-300 mb-2">{item.category}</div>
-                    <h3 className="text-2xl font-bold mb-2 group-hover:text-eco-300 transition-colors">
-                      {item.title}
-                    </h3>
-                    <div className="flex items-center space-x-2 text-eco-400">
-                      <CheckCircle className="w-5 h-5" />
-                      <span className="font-semibold">{item.results}</span>
-                    </div>
-                  </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.items.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl sm:text-5xl font-bold text-emerald-600 mb-2">
+                  {stat.number}
                 </div>
-              </Link>
+                <p className="text-gray-600 font-medium">
+                  {stat.label}
+                </p>
+              </div>
             ))}
           </div>
-
-          {/* View All Portfolio CTA */}
-          <div className="text-center mt-12">
-            <Link
-              to="/portfolio"
-              className="inline-flex items-center space-x-2 px-8 py-3 bg-eco-600 text-white rounded-lg font-semibold hover:bg-eco-700 transition-all duration-200 shadow-lg shadow-eco-600/30"
-            >
-              <span>View Full Portfolio</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-eco-600 to-eco-800 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/[0.05] [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.3))]" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Transform Your Digital Presence?
-            </h2>
-            <p className="text-xl text-eco-100 mb-10 leading-relaxed">
-              Let's discuss how we can help your business achieve sustainable growth and dominate
-              your market.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link
-                to="/quote"
-                className="w-full sm:w-auto px-8 py-4 bg-white text-eco-700 rounded-lg text-lg font-semibold hover:bg-eco-50 transition-all duration-200 shadow-xl flex items-center justify-center space-x-2"
-              >
-                <span>Get Your Free Quote</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                to="/contact"
-                className="w-full sm:w-auto px-8 py-4 bg-eco-700 text-white rounded-lg text-lg font-semibold hover:bg-eco-800 transition-all duration-200 border-2 border-white/20 flex items-center justify-center"
-              >
-                Contact Us
-              </Link>
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-emerald-600 to-blue-600">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+            {isSwedish ? 'Redo att växa er digitala närvaro?' : 'Ready to grow your digital presence?'}
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            {isSwedish
+              ? 'Boka ett kostnadsfritt strategimöte och få en skräddarsydd plan för er digitala tillväxt.'
+              : 'Book a free strategy meeting and get a customized plan for your digital growth.'
+            }
+          </p>
+          <Link
+            to="/quote"
+            className="inline-flex items-center px-8 py-4 bg-white text-emerald-700 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            {cta.primary}
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Link>
+        </div>
+      </section>
+
+      {/* Trust indicators */}
+      <section className="py-12 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-center">
+            <div className="text-gray-600">
+              <Award className="w-6 h-6 mx-auto mb-2 text-emerald-600" />
+              <span className="text-sm font-medium">
+                {seoContent.trustSignals[language].experience}
+              </span>
+            </div>
+            <div className="text-gray-600">
+              <CheckCircle className="w-6 h-6 mx-auto mb-2 text-emerald-600" />
+              <span className="text-sm font-medium">
+                {seoContent.trustSignals[language].certified}
+              </span>
+            </div>
+            <div className="text-gray-600">
+              <Users className="w-6 h-6 mx-auto mb-2 text-emerald-600" />
+              <span className="text-sm font-medium">
+                {seoContent.trustSignals[language].satisfaction}
+              </span>
+            </div>
+            <div className="text-gray-600">
+              <Globe className="w-6 h-6 mx-auto mb-2 text-emerald-600" />
+              <span className="text-sm font-medium">
+                {seoContent.trustSignals[language].local}
+              </span>
             </div>
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }

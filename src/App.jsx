@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { LanguageProvider } from './contexts/LanguageContext'
 import MainLayout from './layouts/MainLayout'
 import ScrollToTop from './components/ScrollToTop'
 
@@ -50,9 +51,10 @@ import CalculatorsHub from './pages/CalculatorsHub'
 
 function App() {
   return (
-    <div className="font-sans antialiased text-slate-800 bg-stone-50 selection:bg-eco-200 selection:text-eco-900">
-      <ScrollToTop />
-      <MainLayout>
+    <LanguageProvider>
+      <div className="font-sans antialiased text-slate-800 bg-stone-50 selection:bg-eco-200 selection:text-eco-900">
+        <ScrollToTop />
+        <MainLayout>
         <Routes>
           {/* Main Pages */}
           <Route path="/" element={<HomePage />} />
@@ -101,8 +103,9 @@ function App() {
           <Route path="/calculators/air-quality" element={<AirQualityCalculator />} />
           <Route path="/calculators/energy-star" element={<EnergyStarCalculator />} />
         </Routes>
-      </MainLayout>
-    </div>
+        </MainLayout>
+      </div>
+    </LanguageProvider>
   )
 }
 
