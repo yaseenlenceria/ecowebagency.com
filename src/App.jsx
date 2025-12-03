@@ -61,11 +61,14 @@ function App() {
           {/* Main Pages with language prefixes */}
           <Route path="/:lang(sv|en)?" element={<HomePage />} />
           <Route path="/:lang(sv|en)/about" element={<AboutPage />} />
+          <Route path="/:lang(sv|en)/om-oss" element={<AboutPage />} />
           <Route path="/:lang(sv|en)/services" element={<ServicesPage />} />
+          <Route path="/:lang(sv|en)/tjanster" element={<ServicesPage />} />
           <Route path="/:lang(sv|en)/portfolio" element={<PortfolioPage />} />
           <Route path="/:lang(sv|en)/pricing" element={<PricingPage />} />
           <Route path="/:lang(sv|en)/blog" element={<BlogPage />} />
           <Route path="/:lang(sv|en)/contact" element={<ContactPage />} />
+          <Route path="/:lang(sv|en)/kontakt" element={<ContactPage />} />
           <Route path="/:lang(sv|en)/quote" element={<QuotePage />} />
 
           {/* Service Detail Pages */}
@@ -79,9 +82,12 @@ function App() {
           {/* Legal Pages */}
           <Route path="/:lang(sv|en)/privacy" element={<PrivacyPage />} />
           <Route path="/:lang(sv|en)/terms" element={<TermsPage />} />
+          <Route path="/:lang(sv|en)/integritet" element={<PrivacyPage />} />
+          <Route path="/:lang(sv|en)/villkor" element={<TermsPage />} />
 
           {/* Calculator Hub */}
           <Route path="/:lang(sv|en)/calculators" element={<CalculatorsHub />} />
+          <Route path="/:lang(sv|en)/kalkylatorer" element={<CalculatorsHub />} />
 
           {/* Individual Calculator Pages */}
           <Route path="/:lang(sv|en)/calculators/carbon-footprint" element={<CarbonFootprintCalculator />} />

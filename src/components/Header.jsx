@@ -47,10 +47,10 @@ export default function Header() {
   // Main navigation items
   const navItems = isSwedish
     ? [
-        { name: 'Tjänster', path: 'services' },
+        { name: 'Tjänster', path: 'tjanster' },
         { name: 'Portfolio', path: 'portfolio' },
-        { name: 'Om oss', path: 'about' },
-        { name: 'Kontakt', path: 'contact' },
+        { name: 'Om oss', path: 'om-oss' },
+        { name: 'Kontakt', path: 'kontakt' },
       ]
     : [
         { name: 'Services', path: 'services' },
@@ -131,7 +131,7 @@ export default function Header() {
               onMouseLeave={() => setIsServicesOpen(false)}
             >
               <NavLink
-                to={getLocalizedPath('services')}
+                to={getLocalizedPath(isSwedish ? 'tjanster' : 'services')}
                 className={({ isActive }) =>
                   `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1 ${
                     isActive
@@ -276,9 +276,19 @@ export default function Header() {
 
               {/* Mobile Services Section */}
               <div>
-                <button
-                  onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="w-full px-4 py-3 rounded-md text-base font-medium text-slate-700 hover:text-eco-700 hover:bg-eco-50 transition-colors duration-200 flex items-center justify-between"
+                <NavLink
+                  to={getLocalizedPath(isSwedish ? 'tjanster' : 'services')}
+                  onClick={() => {
+                    closeMobileMenu()
+                    setIsServicesOpen(!isServicesOpen)
+                  }}
+                  className={({ isActive }) =>
+                    `w-full px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 flex items-center justify-between ${
+                      isActive
+                        ? 'text-eco-700 bg-eco-50'
+                        : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                    }`
+                  }
                 >
                   <span>{isSwedish ? 'Tjänster' : 'Services'}</span>
                   <ChevronDown
@@ -286,7 +296,7 @@ export default function Header() {
                       isServicesOpen ? 'rotate-180' : ''
                     }`}
                   />
-                </button>
+                </NavLink>
 
                 {isServicesOpen && (
                   <div className="mt-2 ml-4 space-y-2">
