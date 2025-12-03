@@ -6,15 +6,18 @@ export default function LanguageSwitcher() {
   const { language, switchLanguage, isSwedish, isEnglish } = useLanguage()
 
   return (
-    <div className="relative inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full p-1 border border-white/20">
+    <div className="relative inline-flex items-center bg-blue-500 rounded-lg p-1 border-2 border-blue-600 shadow-lg">
       <div className="flex items-center space-x-1">
         <button
-          onClick={() => switchLanguage('sv')}
+          onClick={() => {
+            console.log('SV button clicked')
+            switchLanguage('sv')
+          }}
           className={`
-            inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200
+            inline-flex items-center px-4 py-2 rounded text-sm font-bold transition-all duration-200
             ${isSwedish
-              ? 'bg-white text-slate-900 shadow-md'
-              : 'text-white/70 hover:text-white hover:bg-white/10'
+              ? 'bg-white text-blue-600 shadow-md'
+              : 'text-white hover:bg-blue-600'
             }
           `}
         >
@@ -22,12 +25,15 @@ export default function LanguageSwitcher() {
           SV
         </button>
         <button
-          onClick={() => switchLanguage('en')}
+          onClick={() => {
+            console.log('EN button clicked')
+            switchLanguage('en')
+          }}
           className={`
-            inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200
+            inline-flex items-center px-4 py-2 rounded text-sm font-bold transition-all duration-200
             ${isEnglish
-              ? 'bg-white text-slate-900 shadow-md'
-              : 'text-white/70 hover:text-white hover:bg-white/10'
+              ? 'bg-white text-blue-600 shadow-md'
+              : 'text-white hover:bg-blue-600'
             }
           `}
         >

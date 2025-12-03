@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
 import { seoContent } from '../data/seoContent'
+import LanguageDebug from '../components/LanguageDebug'
+import SimpleLanguageTest from '../components/SimpleLanguageTest'
 import {
   Search,
   Code,
@@ -47,6 +49,10 @@ export default function HomePage() {
   const whyChooseUs = content.whyChooseUs[language]
   const stats = content.stats[language]
   const cta = seoContent.cta[language]
+
+  // Debug: Log current language and content
+  console.log('HomePage - Current language:', language)
+  console.log('HomePage - Hero title:', hero.title)
 
   // Update page title and meta
   React.useEffect(() => {
@@ -271,6 +277,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Debug Components */}
+      <LanguageDebug />
+      <SimpleLanguageTest />
     </>
   )
 }

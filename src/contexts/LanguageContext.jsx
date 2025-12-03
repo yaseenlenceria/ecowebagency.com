@@ -18,6 +18,7 @@ export const LanguageProvider = ({ children }) => {
   })
 
   const switchLanguage = (lang) => {
+    console.log('Switching language to:', lang)
     setLanguage(lang)
     localStorage.setItem('language', lang)
   }
