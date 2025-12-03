@@ -28,7 +28,6 @@ export default function HomePage() {
     'Webbdesign Företag': Code,
     'Web Design Company': Code,
     'Performance Marketing': TrendingUp,
-    'Performance Marketing': TrendingUp,
     'Varumärkesdesign': Palette,
     'Brand Design': Palette,
   }
