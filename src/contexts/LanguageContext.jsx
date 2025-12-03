@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const LanguageContext = createContext()
 
@@ -11,35 +12,95 @@ export const useLanguage = () => {
 }
 
 export const LanguageProvider = ({ children }) => {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  // Extract language from URL path
+  const getLanguageFromPath = (pathname) => {
+    const segments = pathname.split('/').filter(Boolean)
+    const firstSegment = segments[0]
+
+    // Check if first segment is a language code
+    if (firstSegment === 'sv' || firstSegment === 'en') {
+      return firstSegment
+    }
+
+    // Default to Swedish for root paths
+    return 'sv'
+  }
+
   const [language, setLanguage] = useState(() => {
-    // Try to get language from localStorage, default to Swedish
-    const savedLanguage = localStorage.getItem('language')
-    return savedLanguage || 'sv'
+    return getLanguageFromPath(location.pathname)
   })
 
-  const switchLanguage = (lang) => {
-    console.log('Switching language to:', lang)
-    setLanguage(lang)
-    localStorage.setItem('language', lang)
+  // Switch language with URL navigation
+  const switchLanguage = (newLanguage) => {
+    if (newLanguage === language) return
+
+    const currentPath = location.pathname
+    const segments = currentPath.split('/').filter(Boolean)
+
+    let newPath
+    if (segments[0] === 'sv' || segments[0] === 'en') {
+      // Replace existing language segment
+      segments[0] = newLanguage
+      newPath = '/' + segments.join('/')
+    } else {
+      // Add language prefix
+      newPath = `/${newLanguage}${currentPath}`
+    }
+
+    // Remove trailing slash for consistency
+    if (newPath !== '/' && newPath.endsWith('/')) {
+      newPath = newPath.slice(0, -1)
+    }
+
+    navigate(newPath)
   }
 
-  const t = (key) => {
-    // This would normally use the seoContent, but for now we'll return the key
-    // In a real implementation, you'd import seoContent and use it
-    return key
+  // Get localized path
+  const getLocalizedPath = (path, targetLanguage = language) => {
+    if (!path.startsWith('/')) {
+      path = '/' + path
+    }
+
+    // Remove existing language prefix if present
+    const cleanPath = path.replace(/^\/(sv|en)/, '')
+
+    // Add new language prefix
+    return `/${targetLanguage}${cleanPath}`
   }
 
+  // Update language state when URL changes
   useEffect(() => {
-    // Set HTML lang attribute for SEO
+    const pathLanguage = getLanguageFromPath(location.pathname)
+    if (pathLanguage !== language) {
+      setLanguage(pathLanguage)
+    }
+  }, [location.pathname])
+
+  // Set HTML lang attribute for SEO
+  useEffect(() => {
     document.documentElement.lang = language
   }, [language])
 
   const value = {
     language,
     switchLanguage,
-    t,
+    getLocalizedPath,
     isSwedish: language === 'sv',
-    isEnglish: language === 'en'
+    isEnglish: language === 'en',
+    // Helper for getting current language's alternate
+    getAlternateLanguage: () => language === 'sv' ? 'en' : 'sv',
+    // Helper for getting hreflang URLs
+    getHreflangUrls: (currentPath) => {
+      const basePath = currentPath.replace(/^\/(sv|en)/, '')
+      return {
+        sv: `/sv${basePath}`,
+        en: `/en${basePath}`,
+        'x-default': `/sv${basePath}`
+      }
+    }
   }
 
   return (

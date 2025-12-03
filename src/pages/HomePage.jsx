@@ -41,29 +41,11 @@ export default function HomePage() {
     '🤝': Users,
   }
 
-  const meta = seoContent.meta[language]
   const hero = content.hero[language]
   const services = content.services[language]
   const whyChooseUs = content.whyChooseUs[language]
   const stats = content.stats[language]
   const cta = seoContent.cta[language]
-
-  // Debug: Log current language and content
-  console.log('HomePage - Current language:', language)
-  console.log('HomePage - Hero title:', hero.title)
-
-  // Update page title and meta
-  React.useEffect(() => {
-    document.title = meta.title
-    const metaDescription = document.querySelector('meta[name="description"]')
-    if (metaDescription) {
-      metaDescription.setAttribute('content', meta.description)
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]')
-    if (metaKeywords) {
-      metaKeywords.setAttribute('content', meta.keywords)
-    }
-  }, [language, meta])
 
   return (
     <>

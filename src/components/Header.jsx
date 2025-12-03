@@ -5,7 +5,7 @@ import { Menu, X, ChevronDown, Leaf } from 'lucide-react'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Header() {
-  const { language, isSwedish } = useLanguage()
+  const { language, isSwedish, getLocalizedPath } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
@@ -28,35 +28,35 @@ export default function Header() {
   // Services menu items
   const servicesItems = isSwedish
     ? [
-        { name: 'SEO', path: '/services/seo' },
-        { name: 'Webbutveckling', path: '/services/web-development' },
-        { name: 'Varumärkesdesign', path: '/services/branding' },
-        { name: 'Performance Marketing', path: '/services/ads' },
-        { name: 'Social Media Management', path: '/services/social-media' },
-        { name: 'Custom Software / AI Tools', path: '/services/custom-software' },
+        { name: 'SEO', path: 'services/seo' },
+        { name: 'Webbutveckling', path: 'services/web-development' },
+        { name: 'Varumärkesdesign', path: 'services/branding' },
+        { name: 'Performance Marketing', path: 'services/ads' },
+        { name: 'Social Media Management', path: 'services/social-media' },
+        { name: 'Custom Software / AI Tools', path: 'services/custom-software' },
       ]
     : [
-        { name: 'SEO', path: '/services/seo' },
-        { name: 'Web Development', path: '/services/web-development' },
-        { name: 'Branding & Graphic Design', path: '/services/branding' },
-        { name: 'Ads & Performance Marketing', path: '/services/ads' },
-        { name: 'Social Media Management', path: '/services/social-media' },
-        { name: 'Custom Software / AI Tools', path: '/services/custom-software' },
+        { name: 'SEO', path: 'services/seo' },
+        { name: 'Web Development', path: 'services/web-development' },
+        { name: 'Branding & Graphic Design', path: 'services/branding' },
+        { name: 'Ads & Performance Marketing', path: 'services/ads' },
+        { name: 'Social Media Management', path: 'services/social-media' },
+        { name: 'Custom Software / AI Tools', path: 'services/custom-software' },
       ]
 
   // Main navigation items
   const navItems = isSwedish
     ? [
-        { name: 'Tjänster', path: '/services' },
-        { name: 'Portfolio', path: '/portfolio' },
-        { name: 'Om oss', path: '/about' },
-        { name: 'Kontakt', path: '/contact' },
+        { name: 'Tjänster', path: 'services' },
+        { name: 'Portfolio', path: 'portfolio' },
+        { name: 'Om oss', path: 'about' },
+        { name: 'Kontakt', path: 'contact' },
       ]
     : [
-        { name: 'Services', path: '/services' },
-        { name: 'Portfolio', path: '/portfolio' },
-        { name: 'About', path: '/about' },
-        { name: 'Contact', path: '/contact' },
+        { name: 'Services', path: 'services' },
+        { name: 'Portfolio', path: 'portfolio' },
+        { name: 'About', path: 'about' },
+        { name: 'Contact', path: 'contact' },
       ]
 
   return (
@@ -71,7 +71,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo and Brand */}
           <Link
-            to="/"
+            to={getLocalizedPath('')}
             className="flex items-center space-x-3 group"
             onClick={closeMobileMenu}
           >
@@ -96,7 +96,7 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             <NavLink
-              to="/"
+              to={getLocalizedPath('')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -111,7 +111,7 @@ export default function Header() {
             {navItems.map((item, index) => (
               <NavLink
                 key={index}
-                to={item.path}
+                to={getLocalizedPath(item.path)}
                 className={({ isActive }) =>
                   `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive
@@ -131,7 +131,7 @@ export default function Header() {
               onMouseLeave={() => setIsServicesOpen(false)}
             >
               <NavLink
-                to="/services"
+                to={getLocalizedPath('services')}
                 className={({ isActive }) =>
                   `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1 ${
                     isActive
@@ -140,7 +140,7 @@ export default function Header() {
                   }`
                 }
               >
-                <span>Services</span>
+                <span>{isSwedish ? 'Tjänster' : 'Services'}</span>
                 <ChevronDown
                   className={`w-4 h-4 transition-transform duration-200 ${
                     isServicesOpen ? 'rotate-180' : ''
@@ -154,7 +154,7 @@ export default function Header() {
                   {servicesItems.map((item) => (
                     <Link
                       key={item.path}
-                      to={item.path}
+                      to={getLocalizedPath(item.path)}
                       className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-eco-50 hover:text-eco-700 transition-colors duration-200"
                     >
                       {item.name}
@@ -165,7 +165,7 @@ export default function Header() {
             </div>
 
             <NavLink
-              to="/portfolio"
+              to={getLocalizedPath('portfolio')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -178,7 +178,7 @@ export default function Header() {
             </NavLink>
 
             <NavLink
-              to="/pricing"
+              to={getLocalizedPath('pricing')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -191,7 +191,7 @@ export default function Header() {
             </NavLink>
 
             <NavLink
-              to="/blog"
+              to={getLocalizedPath('blog')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -204,7 +204,7 @@ export default function Header() {
             </NavLink>
 
             <NavLink
-              to="/calculators"
+              to={getLocalizedPath('calculators')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -217,7 +217,7 @@ export default function Header() {
             </NavLink>
 
             <NavLink
-              to="/contact"
+              to={getLocalizedPath('contact')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -232,7 +232,7 @@ export default function Header() {
             {/* CTA Button */}
             <LanguageSwitcher />
             <Link
-              to="/quote"
+              to={getLocalizedPath('quote')}
               className="ml-4 px-6 py-2.5 bg-eco-600 text-white rounded-lg text-sm font-semibold hover:bg-eco-700 transform hover:scale-105 transition-all duration-200 shadow-lg shadow-eco-600/30 hover:shadow-eco-700/40"
             >
               {isSwedish ? 'Be om offert' : 'Request a Quote'}
@@ -260,7 +260,7 @@ export default function Header() {
               {navItems.map((item, index) => (
                 <NavLink
                   key={index}
-                  to={item.path}
+                  to={getLocalizedPath(item.path)}
                   onClick={closeMobileMenu}
                   className={({ isActive }) =>
                     `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -293,7 +293,7 @@ export default function Header() {
                     {servicesItems.map((item) => (
                       <Link
                         key={item.path}
-                        to={item.path}
+                        to={getLocalizedPath(item.path)}
                         onClick={closeMobileMenu}
                         className="block px-4 py-2 rounded-md text-sm text-slate-600 hover:text-eco-700 hover:bg-eco-50 transition-colors duration-200"
                       >
@@ -305,7 +305,7 @@ export default function Header() {
               </div>
 
               <NavLink
-                to="/portfolio"
+                to={getLocalizedPath('portfolio')}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -319,7 +319,7 @@ export default function Header() {
               </NavLink>
 
               <NavLink
-                to="/pricing"
+                to={getLocalizedPath('pricing')}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -333,7 +333,7 @@ export default function Header() {
               </NavLink>
 
               <NavLink
-                to="/blog"
+                to={getLocalizedPath('blog')}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -347,7 +347,7 @@ export default function Header() {
               </NavLink>
 
               <NavLink
-                to="/calculators"
+                to={getLocalizedPath('calculators')}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -361,7 +361,7 @@ export default function Header() {
               </NavLink>
 
               <NavLink
-                to="/contact"
+                to={getLocalizedPath('contact')}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -376,7 +376,7 @@ export default function Header() {
 
               {/* Mobile CTA Button */}
               <Link
-                to="/quote"
+                to={getLocalizedPath('quote')}
                 onClick={closeMobileMenu}
                 className="mx-4 mt-4 px-6 py-3 bg-eco-600 text-white rounded-lg text-base font-semibold hover:bg-eco-700 transition-colors duration-200 shadow-lg shadow-eco-600/30 text-center"
               >

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
 import MainLayout from './layouts/MainLayout'
 import ScrollToTop from './components/ScrollToTop'
+import SEOHead from './components/SEOHead'
 
 // Import pages (will be created)
 import HomePage from './pages/HomePage'
@@ -54,54 +55,55 @@ function App() {
     <LanguageProvider>
       <div className="font-sans antialiased text-slate-800 bg-stone-50 selection:bg-eco-200 selection:text-eco-900">
         <ScrollToTop />
+        <SEOHead />
         <MainLayout>
         <Routes>
-          {/* Main Pages */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/quote" element={<QuotePage />} />
+          {/* Main Pages with language prefixes */}
+          <Route path="/:lang(sv|en)?" element={<HomePage />} />
+          <Route path="/:lang(sv|en)/about" element={<AboutPage />} />
+          <Route path="/:lang(sv|en)/services" element={<ServicesPage />} />
+          <Route path="/:lang(sv|en)/portfolio" element={<PortfolioPage />} />
+          <Route path="/:lang(sv|en)/pricing" element={<PricingPage />} />
+          <Route path="/:lang(sv|en)/blog" element={<BlogPage />} />
+          <Route path="/:lang(sv|en)/contact" element={<ContactPage />} />
+          <Route path="/:lang(sv|en)/quote" element={<QuotePage />} />
 
           {/* Service Detail Pages */}
-          <Route path="/services/seo" element={<SEOPage />} />
-          <Route path="/services/web-development" element={<WebDevelopmentPage />} />
-          <Route path="/services/branding" element={<BrandingPage />} />
-          <Route path="/services/ads" element={<AdsPage />} />
-          <Route path="/services/social-media" element={<SocialMediaPage />} />
-          <Route path="/services/custom-software" element={<CustomSoftwarePage />} />
+          <Route path="/:lang(sv|en)/services/seo" element={<SEOPage />} />
+          <Route path="/:lang(sv|en)/services/web-development" element={<WebDevelopmentPage />} />
+          <Route path="/:lang(sv|en)/services/branding" element={<BrandingPage />} />
+          <Route path="/:lang(sv|en)/services/ads" element={<AdsPage />} />
+          <Route path="/:lang(sv|en)/services/social-media" element={<SocialMediaPage />} />
+          <Route path="/:lang(sv|en)/services/custom-software" element={<CustomSoftwarePage />} />
 
           {/* Legal Pages */}
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/:lang(sv|en)/privacy" element={<PrivacyPage />} />
+          <Route path="/:lang(sv|en)/terms" element={<TermsPage />} />
 
           {/* Calculator Hub */}
-          <Route path="/calculators" element={<CalculatorsHub />} />
+          <Route path="/:lang(sv|en)/calculators" element={<CalculatorsHub />} />
 
           {/* Individual Calculator Pages */}
-          <Route path="/calculators/carbon-footprint" element={<CarbonFootprintCalculator />} />
-          <Route path="/calculators/shipping-emissions" element={<ShippingEmissionsCalculator />} />
-          <Route path="/calculators/solar-energy" element={<SolarEnergyCalculator />} />
-          <Route path="/calculators/plastic-waste" element={<PlasticWasteCalculator />} />
-          <Route path="/calculators/water-usage" element={<WaterUsageCalculator />} />
-          <Route path="/calculators/household-energy" element={<HouseholdEnergyCalculator />} />
-          <Route path="/calculators/electric-vehicle" element={<ElectricVehicleCalculator />} />
-          <Route path="/calculators/green-building" element={<GreenBuildingCalculator />} />
-          <Route path="/calculators/tree-offset" element={<TreeOffsetCalculator />} />
-          <Route path="/calculators/sustainable-packaging" element={<SustainablePackagingCalculator />} />
-          <Route path="/calculators/waste-recycling" element={<WasteRecyclingCalculator />} />
-          <Route path="/calculators/green-commute" element={<GreenCommuteCalculator />} />
-          <Route path="/calculators/home-insulation" element={<HomeInsulationCalculator />} />
-          <Route path="/calculators/carbon-neutral-business" element={<CarbonNeutralBusinessCalculator />} />
-          <Route path="/calculators/food-carbon" element={<FoodCarbonCalculator />} />
-          <Route path="/calculators/appliance-efficiency" element={<ApplianceEfficiencyCalculator />} />
-          <Route path="/calculators/rainwater-harvesting" element={<RainwaterHarvestingCalculator />} />
-          <Route path="/calculators/composting-impact" element={<CompostingImpactCalculator />} />
-          <Route path="/calculators/air-quality" element={<AirQualityCalculator />} />
-          <Route path="/calculators/energy-star" element={<EnergyStarCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/carbon-footprint" element={<CarbonFootprintCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/shipping-emissions" element={<ShippingEmissionsCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/solar-energy" element={<SolarEnergyCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/plastic-waste" element={<PlasticWasteCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/water-usage" element={<WaterUsageCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/household-energy" element={<HouseholdEnergyCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/electric-vehicle" element={<ElectricVehicleCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/green-building" element={<GreenBuildingCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/tree-offset" element={<TreeOffsetCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/sustainable-packaging" element={<SustainablePackagingCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/waste-recycling" element={<WasteRecyclingCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/green-commute" element={<GreenCommuteCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/home-insulation" element={<HomeInsulationCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/carbon-neutral-business" element={<CarbonNeutralBusinessCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/food-carbon" element={<FoodCarbonCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/appliance-efficiency" element={<ApplianceEfficiencyCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/rainwater-harvesting" element={<RainwaterHarvestingCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/composting-impact" element={<CompostingImpactCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/air-quality" element={<AirQualityCalculator />} />
+          <Route path="/:lang(sv|en)/calculators/energy-star" element={<EnergyStarCalculator />} />
         </Routes>
         </MainLayout>
       </div>

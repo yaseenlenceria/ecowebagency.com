@@ -9,10 +9,7 @@ export default function LanguageSwitcher() {
     <div className="relative inline-flex items-center bg-blue-500 rounded-lg p-1 border-2 border-blue-600 shadow-lg">
       <div className="flex items-center space-x-1">
         <button
-          onClick={() => {
-            console.log('SV button clicked')
-            switchLanguage('sv')
-          }}
+          onClick={() => switchLanguage('sv')}
           className={`
             inline-flex items-center px-4 py-2 rounded text-sm font-bold transition-all duration-200
             ${isSwedish
@@ -20,15 +17,13 @@ export default function LanguageSwitcher() {
               : 'text-white hover:bg-blue-600'
             }
           `}
+          aria-label="Switch to Swedish"
         >
-          <span className="mr-1">🇸🇪</span>
+          <span className="mr-1" role="img" aria-label="Swedish flag">🇸🇪</span>
           SV
         </button>
         <button
-          onClick={() => {
-            console.log('EN button clicked')
-            switchLanguage('en')
-          }}
+          onClick={() => switchLanguage('en')}
           className={`
             inline-flex items-center px-4 py-2 rounded text-sm font-bold transition-all duration-200
             ${isEnglish
@@ -36,8 +31,9 @@ export default function LanguageSwitcher() {
               : 'text-white hover:bg-blue-600'
             }
           `}
+          aria-label="Switch to English"
         >
-          <span className="mr-1">🇬🇧</span>
+          <span className="mr-1" role="img" aria-label="British flag">🇬🇧</span>
           EN
         </button>
       </div>
