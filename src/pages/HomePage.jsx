@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
 import { seoContent } from '../data/seoContent'
-import LanguageDebug from '../components/LanguageDebug'
-import SimpleLanguageTest from '../components/SimpleLanguageTest'
 import {
   Search,
   Code,
@@ -82,7 +80,7 @@ export default function HomePage() {
           <div className="mb-8">
             <span className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium mb-6">
               <Leaf className="w-4 h-4 mr-2" />
-              {isSwedish ? 'Hållbara Digitala Lösningar' : 'Sustainable Digital Solutions'}
+              {hero.badge}
             </span>
           </div>
 
@@ -228,13 +226,10 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-r from-emerald-600 to-blue-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-            {isSwedish ? 'Redo att växa er digitala närvaro?' : 'Ready to grow your digital presence?'}
+            {cta.sectionTitle}
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            {isSwedish
-              ? 'Boka ett kostnadsfritt strategimöte och få en skräddarsydd plan för er digitala tillväxt.'
-              : 'Book a free strategy meeting and get a customized plan for your digital growth.'
-            }
+            {cta.sectionDescription}
           </p>
           <Link
             to="/quote"
@@ -278,9 +273,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Debug Components */}
-      <LanguageDebug />
-      <SimpleLanguageTest />
-    </>
+      </>
   )
 }

@@ -257,11 +257,6 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="lg:hidden pb-6 animate-in slide-in-from-top duration-200">
             <div className="flex flex-col space-y-2">
-              {/* Add language switcher for mobile */}
-              <div className="px-4 py-3">
-                <LanguageSwitcher />
-              </div>
-
               {navItems.map((item, index) => (
                 <NavLink
                   key={index}

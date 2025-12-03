@@ -21,11 +21,13 @@ export const seoContent = {
       sv: {
         title: "Hållbara Digitala Lösningar som Växer Er Verksamhet",
         subtitle: "Ledande digital byrå i Sverige som kombinerar banbrytande marknadsföring med ekologiskt ansvar",
+        badge: "Hållbara Digitala Lösningar",
         cta: "Boka kostnadsfri strategimöte"
       },
       en: {
         title: "Sustainable Digital Solutions That Grow Your Business",
         subtitle: "Leading digital agency in Sweden combining cutting-edge marketing with ecological responsibility",
+        badge: "Sustainable Digital Solutions",
         cta: "Book Free Strategy Meeting"
       }
     },
@@ -426,12 +428,16 @@ export const seoContent = {
     sv: {
       primary: "Boka kostnadsfri konsultation",
       secondary: "Se våra case studies",
-      contact: "Kontakta oss direkt"
+      contact: "Kontakta oss direkt",
+      sectionTitle: "Redo att växa er digitala närvaro?",
+      sectionDescription: "Boka ett kostnadsfritt strategimöte och få en skräddarsydd plan för er digitala tillväxt."
     },
     en: {
       primary: "Book Free Consultation",
       secondary: "View our case studies",
-      contact: "Contact us directly"
+      contact: "Contact us directly",
+      sectionTitle: "Ready to grow your digital presence?",
+      sectionDescription: "Book a free strategy meeting and get a customized plan for your digital growth."
     }
   },
 
