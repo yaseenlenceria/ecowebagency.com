@@ -44,21 +44,6 @@ export default function Header() {
         { name: 'Custom Software / AI Tools', path: 'services/custom-software' },
       ]
 
-  // Main navigation items
-  const navItems = isSwedish
-    ? [
-        { name: 'Tjänster', path: 'tjanster' },
-        { name: 'Portfolio', path: 'portfolio' },
-        { name: 'Om oss', path: 'om-oss' },
-        { name: 'Kontakt', path: 'kontakt' },
-      ]
-    : [
-        { name: 'Services', path: 'services' },
-        { name: 'Portfolio', path: 'portfolio' },
-        { name: 'About', path: 'about' },
-        { name: 'Contact', path: 'contact' },
-      ]
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -107,22 +92,6 @@ export default function Header() {
             >
               {isSwedish ? 'Hem' : 'Home'}
             </NavLink>
-
-            {navItems.map((item, index) => (
-              <NavLink
-                key={index}
-                to={getLocalizedPath(item.path)}
-                className={({ isActive }) =>
-                  `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive
-                      ? 'text-eco-700 bg-eco-50'
-                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
-                  }`
-                }
-              >
-                {item.name}
-              </NavLink>
-            ))}
 
             {/* Services Dropdown */}
             <div
@@ -213,11 +182,11 @@ export default function Header() {
                 }`
               }
             >
-              Eco Calculators
+              {isSwedish ? 'Miljökalkylatorer' : 'Eco Calculators'}
             </NavLink>
 
             <NavLink
-              to={getLocalizedPath('contact')}
+              to={getLocalizedPath(isSwedish ? 'om-oss' : 'about')}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive
@@ -226,7 +195,20 @@ export default function Header() {
                 }`
               }
             >
-              Contact
+              {isSwedish ? 'Om oss' : 'About'}
+            </NavLink>
+
+            <NavLink
+              to={getLocalizedPath(isSwedish ? 'kontakt' : 'contact')}
+              className={({ isActive }) =>
+                `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  isActive
+                    ? 'text-eco-700 bg-eco-50'
+                    : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                }`
+              }
+            >
+              {isSwedish ? 'Kontakt' : 'Contact'}
             </NavLink>
 
             {/* CTA Button */}
@@ -257,38 +239,25 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="lg:hidden pb-6 animate-in slide-in-from-top duration-200">
             <div className="flex flex-col space-y-2">
-              {navItems.map((item, index) => (
-                <NavLink
-                  key={index}
-                  to={getLocalizedPath(item.path)}
-                  onClick={closeMobileMenu}
-                  className={({ isActive }) =>
-                    `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive
-                        ? 'text-eco-700 bg-eco-50'
-                        : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
-                    }`
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              ))}
+              <NavLink
+                to={getLocalizedPath('')}
+                onClick={closeMobileMenu}
+                className={({ isActive }) =>
+                  `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'text-eco-700 bg-eco-50'
+                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                  }`
+                }
+              >
+                {isSwedish ? 'Hem' : 'Home'}
+              </NavLink>
 
               {/* Mobile Services Section */}
               <div>
-                <NavLink
-                  to={getLocalizedPath(isSwedish ? 'tjanster' : 'services')}
-                  onClick={() => {
-                    closeMobileMenu()
-                    setIsServicesOpen(!isServicesOpen)
-                  }}
-                  className={({ isActive }) =>
-                    `w-full px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 flex items-center justify-between ${
-                      isActive
-                        ? 'text-eco-700 bg-eco-50'
-                        : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
-                    }`
-                  }
+                <button
+                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  className="w-full px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 flex items-center justify-between text-slate-700 hover:text-eco-700 hover:bg-eco-50"
                 >
                   <span>{isSwedish ? 'Tjänster' : 'Services'}</span>
                   <ChevronDown
@@ -296,10 +265,17 @@ export default function Header() {
                       isServicesOpen ? 'rotate-180' : ''
                     }`}
                   />
-                </NavLink>
+                </button>
 
                 {isServicesOpen && (
                   <div className="mt-2 ml-4 space-y-2">
+                    <Link
+                      to={getLocalizedPath(isSwedish ? 'tjanster' : 'services')}
+                      onClick={closeMobileMenu}
+                      className="block px-4 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-eco-700 hover:bg-eco-50 transition-colors duration-200"
+                    >
+                      {isSwedish ? 'Alla Tjänster' : 'All Services'}
+                    </Link>
                     {servicesItems.map((item) => (
                       <Link
                         key={item.path}
@@ -367,11 +343,11 @@ export default function Header() {
                   }`
                 }
               >
-                Eco Calculators
+                {isSwedish ? 'Miljökalkylatorer' : 'Eco Calculators'}
               </NavLink>
 
               <NavLink
-                to={getLocalizedPath('contact')}
+                to={getLocalizedPath(isSwedish ? 'om-oss' : 'about')}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
@@ -381,8 +357,27 @@ export default function Header() {
                   }`
                 }
               >
-                Contact
+                {isSwedish ? 'Om oss' : 'About'}
               </NavLink>
+
+              <NavLink
+                to={getLocalizedPath(isSwedish ? 'kontakt' : 'contact')}
+                onClick={closeMobileMenu}
+                className={({ isActive }) =>
+                  `px-4 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'text-eco-700 bg-eco-50'
+                      : 'text-slate-700 hover:text-eco-700 hover:bg-eco-50'
+                  }`
+                }
+              >
+                {isSwedish ? 'Kontakt' : 'Contact'}
+              </NavLink>
+
+              {/* Mobile Language Switcher */}
+              <div className="px-4 py-2">
+                <LanguageSwitcher />
+              </div>
 
               {/* Mobile CTA Button */}
               <Link

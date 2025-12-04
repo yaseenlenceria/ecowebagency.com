@@ -1,42 +1,26 @@
 import React from 'react'
 import { useLanguage } from '../contexts/LanguageContext'
-import { Globe } from 'lucide-react'
 
 export default function LanguageSwitcher() {
-  const { language, switchLanguage, isSwedish, isEnglish } = useLanguage()
+  const { language, switchLanguage, isSwedish } = useLanguage()
 
   return (
-    <div className="relative inline-flex items-center bg-blue-500 rounded-lg p-1 border-2 border-blue-600 shadow-lg">
-      <div className="flex items-center space-x-1">
-        <button
-          onClick={() => switchLanguage('sv')}
-          className={`
-            inline-flex items-center px-4 py-2 rounded text-sm font-bold transition-all duration-200
-            ${isSwedish
-              ? 'bg-white text-blue-600 shadow-md'
-              : 'text-white hover:bg-blue-600'
-            }
-          `}
-          aria-label="Switch to Swedish"
-        >
-          <span className="mr-1" role="img" aria-label="Swedish flag">🇸🇪</span>
-          SV
-        </button>
-        <button
-          onClick={() => switchLanguage('en')}
-          className={`
-            inline-flex items-center px-4 py-2 rounded text-sm font-bold transition-all duration-200
-            ${isEnglish
-              ? 'bg-white text-blue-600 shadow-md'
-              : 'text-white hover:bg-blue-600'
-            }
-          `}
-          aria-label="Switch to English"
-        >
-          <span className="mr-1" role="img" aria-label="British flag">🇬🇧</span>
-          EN
-        </button>
-      </div>
+    <div className="relative inline-flex items-center">
+      <button
+        onClick={() => switchLanguage('sv')}
+        className={`
+          inline-flex items-center px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 border-2
+          ${isSwedish
+            ? 'bg-blue-600 text-white border-blue-700 shadow-lg ring-2 ring-blue-300'
+            : 'bg-blue-500 text-white border-blue-600 hover:bg-blue-600 hover:shadow-lg shadow-md'
+          }
+        `}
+        aria-label={isSwedish ? 'Currently viewing in Swedish' : 'Switch to Swedish'}
+        title={isSwedish ? 'Currently in Swedish' : 'Switch to Swedish'}
+      >
+        <span className="mr-2 text-lg" role="img" aria-label="Swedish flag">🇸🇪</span>
+        <span className="font-semibold">Swedish</span>
+      </button>
     </div>
   )
 }

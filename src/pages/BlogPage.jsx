@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar, User, ArrowRight, Clock, Tag } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function BlogPage() {
+  const { isSwedish, getLocalizedPath } = useLanguage()
   const posts = [
     {
       id: 1,
@@ -99,7 +101,9 @@ export default function BlogPage() {
     },
   ]
 
-  const categories = ['All', 'SEO', 'Marketing', 'Web Development', 'Branding', 'Ads', 'Social Media', 'Technology', 'Content']
+  const categories = isSwedish
+    ? ['Alla', 'SEO', 'Marknadsföring', 'Webbutveckling', 'Varumärke', 'Annonser', 'Sociala medier', 'Teknologi', 'Innehåll']
+    : ['All', 'SEO', 'Marketing', 'Web Development', 'Branding', 'Ads', 'Social Media', 'Technology', 'Content']
 
   return (
     <div className="bg-stone-50">
@@ -109,11 +113,12 @@ export default function BlogPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Digital Marketing Insights
+              {isSwedish ? 'Insikter om digital marknadsföring' : 'Digital Marketing Insights'}
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed">
-              Expert strategies, industry trends, and actionable tips to help your business grow
-              online.
+              {isSwedish
+                ? 'Expertstrategier, branschtrender och praktiska tips för att hjälpa ditt företag växa online.'
+                : 'Expert strategies, industry trends, and actionable tips to help your business grow online.'}
             </p>
           </div>
         </div>
@@ -138,7 +143,9 @@ export default function BlogPage() {
       {/* Featured Posts */}
       <section className="py-20 lg:py-28">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12">Featured Articles</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-12">
+            {isSwedish ? 'Utvalda artiklar' : 'Featured Articles'}
+          </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             {posts.filter(p => p.featured).map((post) => (
@@ -181,7 +188,7 @@ export default function BlogPage() {
 
                   {/* CTA */}
                   <button className="text-eco-600 font-semibold flex items-center space-x-2 group-hover:translate-x-2 transition-transform duration-300">
-                    <span>Read More</span>
+                    <span>{isSwedish ? 'Läs mer' : 'Read More'}</span>
                     <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
@@ -190,7 +197,9 @@ export default function BlogPage() {
           </div>
 
           {/* Regular Posts Grid */}
-          <h2 className="text-3xl font-bold text-slate-900 mb-12">Recent Posts</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-12">
+            {isSwedish ? 'Senaste inläggen' : 'Recent Posts'}
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.filter(p => !p.featured).map((post) => (
@@ -224,7 +233,7 @@ export default function BlogPage() {
 
                   {/* CTA */}
                   <button className="text-eco-600 font-semibold text-sm flex items-center space-x-2 group-hover:translate-x-2 transition-transform duration-300">
-                    <span>Read Article</span>
+                    <span>{isSwedish ? 'Läs artikel' : 'Read Article'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -239,26 +248,30 @@ export default function BlogPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Get Digital Marketing Tips in Your Inbox
+              {isSwedish
+                ? 'Få tips om digital marknadsföring i din inkorg'
+                : 'Get Digital Marketing Tips in Your Inbox'}
             </h2>
             <p className="text-xl text-eco-100 mb-8">
-              Join 5,000+ business owners receiving weekly insights and strategies
+              {isSwedish
+                ? 'Gå med 5 000+ företagare som får veckovisa insikter och strategier'
+                : 'Join 5,000+ business owners receiving weekly insights and strategies'}
             </p>
             <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={isSwedish ? 'Ange din e-postadress' : 'Enter your email'}
                 className="flex-grow px-6 py-4 rounded-lg text-slate-900 focus:outline-none focus:ring-4 focus:ring-eco-300"
               />
               <button
                 type="submit"
                 className="px-8 py-4 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all duration-200 whitespace-nowrap"
               >
-                Subscribe
+                {isSwedish ? 'Prenumerera' : 'Subscribe'}
               </button>
             </form>
             <p className="text-sm text-eco-100 mt-4">
-              No spam. Unsubscribe anytime.
+              {isSwedish ? 'Ingen spam. Avsluta prenumerationen när som helst.' : 'No spam. Unsubscribe anytime.'}
             </p>
           </div>
         </div>

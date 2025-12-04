@@ -1,16 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { CheckCircle, ArrowRight, Sparkles, Zap, Rocket } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function PricingPage() {
+  const { isSwedish, getLocalizedPath } = useLanguage()
   const packages = [
     {
-      name: 'Starter',
+      name: isSwedish ? 'Starter' : 'Starter',
       icon: Sparkles,
-      price: '$2,500',
-      period: 'per month',
-      description: 'Perfect for small businesses starting their digital journey',
-      features: [
+      price: isSwedish ? '25 000 kr' : '$2,500',
+      period: isSwedish ? 'per månad' : 'per month',
+      description: isSwedish
+        ? 'Perfekt för små företag som börjar sin digitala resa'
+        : 'Perfect for small businesses starting their digital journey',
+      features: isSwedish ? [
+        'Grundläggande SEO-optimering',
+        'Webbplats med 5 sidor',
+        'Mobilanpassad design',
+        'Månatlig analysrapport',
+        'E-postsupport',
+        'Inställning av sociala medier',
+      ] : [
         'Basic SEO Optimization',
         '5-Page Website',
         'Mobile Responsive Design',
@@ -18,17 +29,28 @@ export default function PricingPage() {
         'Email Support',
         'Social Media Setup',
       ],
-      cta: 'Get Started',
+      cta: isSwedish ? 'Kom igång' : 'Get Started',
       popular: false,
       color: 'from-blue-500 to-blue-600',
     },
     {
-      name: 'Growth',
+      name: isSwedish ? 'Tillväxt' : 'Growth',
       icon: Zap,
-      price: '$5,000',
-      period: 'per month',
-      description: 'Ideal for growing businesses ready to scale',
-      features: [
+      price: isSwedish ? '50 000 kr' : '$5,000',
+      period: isSwedish ? 'per månad' : 'per month',
+      description: isSwedish
+        ? 'Idealiskt för växande företag redo att skala'
+        : 'Ideal for growing businesses ready to scale',
+      features: isSwedish ? [
+        'Avancerad SEO-strategi',
+        'Anpassad webbplats (10-15 sidor)',
+        'Innehållsmarknadsföring',
+        'Google Ads-hantering',
+        'Hantering av sociala medier',
+        'Veckovisa prestationsrapporter',
+        'Prioriterad support',
+        'Konverteringsoptimering',
+      ] : [
         'Advanced SEO Strategy',
         'Custom Website (10-15 pages)',
         'Content Marketing',
@@ -38,17 +60,29 @@ export default function PricingPage() {
         'Priority Support',
         'Conversion Optimization',
       ],
-      cta: 'Start Growing',
+      cta: isSwedish ? 'Börja växa' : 'Start Growing',
       popular: true,
       color: 'from-eco-500 to-eco-600',
     },
     {
-      name: 'Enterprise',
+      name: isSwedish ? 'Enterprise' : 'Enterprise',
       icon: Rocket,
-      price: 'Custom',
-      period: 'contact us',
-      description: 'Comprehensive solutions for established businesses',
-      features: [
+      price: isSwedish ? 'Anpassat' : 'Custom',
+      period: isSwedish ? 'kontakta oss' : 'contact us',
+      description: isSwedish
+        ? 'Omfattande lösningar för etablerade företag'
+        : 'Comprehensive solutions for established businesses',
+      features: isSwedish ? [
+        'Fullständig SEO- och innehållsstrategi',
+        'Anpassad webbapplikation',
+        'Marknadsföring i flera kanaler',
+        'Avancerad analys och BI',
+        'Dedikerad kontoansvarig',
+        'Anpassade integrationer',
+        'AI- och automationsverktyg',
+        'White-Glove-support',
+        'Kvartalsvisa strategigenomgångar',
+      ] : [
         'Full SEO & Content Strategy',
         'Custom Web Application',
         'Multi-Channel Marketing',
@@ -59,13 +93,20 @@ export default function PricingPage() {
         'White-Glove Support',
         'Quarterly Strategy Reviews',
       ],
-      cta: 'Contact Sales',
+      cta: isSwedish ? 'Kontakta försäljning' : 'Contact Sales',
       popular: false,
       color: 'from-purple-500 to-purple-600',
     },
   ]
 
-  const services = [
+  const services = isSwedish ? [
+    { name: 'SEO-tjänster', starting: '15 000 kr/mån' },
+    { name: 'Webbutveckling', starting: '30 000 kr projekt' },
+    { name: 'Varumärke & Design', starting: '25 000 kr projekt' },
+    { name: 'Performance Marketing', starting: '20 000 kr/mån + annonsbudget' },
+    { name: 'Hantering av sociala medier', starting: '10 000 kr/mån' },
+    { name: 'Anpassad programvara', starting: '100 000 kr projekt' },
+  ] : [
     { name: 'SEO Services', starting: '$1,500/mo' },
     { name: 'Web Development', starting: '$3,000 project' },
     { name: 'Branding & Design', starting: '$2,500 project' },
@@ -82,11 +123,12 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Transparent Pricing, Real Value
+              {isSwedish ? 'Transparent prissättning, verkligt värde' : 'Transparent Pricing, Real Value'}
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed">
-              Choose a package that fits your needs, or let us create a custom solution for your
-              business. No hidden fees, no surprises.
+              {isSwedish
+                ? 'Välj ett paket som passar dina behov, eller låt oss skapa en anpassad lösning för ditt företag. Inga dolda avgifter, inga överraskningar.'
+                : 'Choose a package that fits your needs, or let us create a custom solution for your business. No hidden fees, no surprises.'}
             </p>
           </div>
         </div>
@@ -108,7 +150,7 @@ export default function PricingPage() {
                   {/* Popular Badge */}
                   {pkg.popular && (
                     <div className="absolute top-0 right-0 bg-eco-600 text-white px-4 py-2 rounded-bl-2xl font-bold text-sm">
-                      MOST POPULAR
+                      {isSwedish ? 'MEST POPULÄR' : 'MOST POPULAR'}
                     </div>
                   )}
 
@@ -144,7 +186,7 @@ export default function PricingPage() {
 
                     {/* CTA Button */}
                     <Link
-                      to="/quote"
+                      to={getLocalizedPath('/quote')}
                       className={`block w-full px-6 py-4 rounded-lg font-semibold text-center transition-all duration-200 ${
                         pkg.popular
                           ? 'bg-gradient-to-r from-eco-600 to-eco-700 text-white hover:shadow-xl transform hover:scale-105'
@@ -167,10 +209,12 @@ export default function PricingPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                Individual Services
+                {isSwedish ? 'Enskilda tjänster' : 'Individual Services'}
               </h2>
               <p className="text-lg text-slate-600">
-                Need something specific? We offer individual services à la carte
+                {isSwedish
+                  ? 'Behöver du något specifikt? Vi erbjuder enskilda tjänster à la carte'
+                  : 'Need something specific? We offer individual services à la carte'}
               </p>
             </div>
 
@@ -189,10 +233,10 @@ export default function PricingPage() {
 
               <div className="mt-8 text-center">
                 <Link
-                  to="/services"
+                  to={getLocalizedPath('/services')}
                   className="inline-flex items-center space-x-2 text-eco-600 font-semibold hover:text-eco-700"
                 >
-                  <span>View All Services</span>
+                  <span>{isSwedish ? 'Se alla tjänster' : 'View All Services'}</span>
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
@@ -206,11 +250,32 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-              Frequently Asked Questions
+              {isSwedish ? 'Vanliga frågor' : 'Frequently Asked Questions'}
             </h2>
 
             <div className="space-y-6">
-              {[
+              {(isSwedish ? [
+                {
+                  q: 'Kräver ni långtidskontrakt?',
+                  a: 'Vi erbjuder flexibla månad-till-månad-avtal för de flesta tjänster. Vi rekommenderar dock minst 6 månaders engagemang för SEO för att se optimala resultat.',
+                },
+                {
+                  q: 'Vad ingår i den månatliga avgiften?',
+                  a: 'Varje paket inkluderar specifika leveranser som beskrivs ovan. Vi tillhandahåller detaljerade månatliga rapporter som visar exakt vilket arbete som utförts och vilka resultat som uppnåtts.',
+                },
+                {
+                  q: 'Kan jag anpassa ett paket?',
+                  a: 'Absolut! Varje företag är unikt. Kontakta oss för att diskutera en anpassad lösning skräddarsydd efter dina specifika behov och budget.',
+                },
+                {
+                  q: 'Jobbar ni med startups?',
+                  a: 'Ja! Vi älskar att arbeta med startups och erbjuder specialpriser för företag i tidigt skede. Vårt Starter-paket är designat med startups i åtanke.',
+                },
+                {
+                  q: 'Vad skiljer er prissättning från andra?',
+                  a: 'Vi tror på transparent, värdebaserad prissättning. Du kommer alltid att veta exakt vad du betalar för och vilken ROI du får. Inga dolda avgifter eller överraskningskostnader.',
+                },
+              ] : [
                 {
                   q: 'Do you require long-term contracts?',
                   a: 'We offer flexible month-to-month agreements for most services. However, we recommend a minimum 6-month commitment for SEO to see optimal results.',
@@ -231,7 +296,7 @@ export default function PricingPage() {
                   q: 'What makes your pricing different?',
                   a: 'We believe in transparent, value-based pricing. You\'ll always know exactly what you\'re paying for and the ROI you\'re getting. No hidden fees or surprise charges.',
                 },
-              ].map((faq, index) => (
+              ]).map((faq, index) => (
                 <div key={index} className="bg-white p-6 rounded-xl shadow-md border border-slate-200">
                   <h3 className="text-lg font-bold text-slate-900 mb-2">{faq.q}</h3>
                   <p className="text-slate-600 leading-relaxed">{faq.a}</p>
@@ -247,25 +312,26 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Get Started?
+              {isSwedish ? 'Redo att komma igång?' : 'Ready to Get Started?'}
             </h2>
             <p className="text-xl text-eco-100 mb-10 leading-relaxed">
-              Let's discuss your project and find the perfect solution for your business goals and
-              budget.
+              {isSwedish
+                ? 'Låt oss diskutera ditt projekt och hitta den perfekta lösningen för dina affärsmål och budget.'
+                : "Let's discuss your project and find the perfect solution for your business goals and budget."}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
               <Link
-                to="/quote"
+                to={getLocalizedPath('/quote')}
                 className="w-full sm:w-auto px-8 py-4 bg-white text-eco-700 rounded-lg text-lg font-semibold hover:bg-eco-50 transition-all duration-200 shadow-xl flex items-center justify-center space-x-2"
               >
-                <span>Get Your Free Quote</span>
+                <span>{isSwedish ? 'Få din kostnadsfria offert' : 'Get Your Free Quote'}</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/contact"
+                to={getLocalizedPath('/contact')}
                 className="w-full sm:w-auto px-8 py-4 bg-eco-700 text-white rounded-lg text-lg font-semibold hover:bg-eco-800 transition-all duration-200 border-2 border-white/20"
               >
-                Contact Us
+                {isSwedish ? 'Kontakta oss' : 'Contact Us'}
               </Link>
             </div>
           </div>

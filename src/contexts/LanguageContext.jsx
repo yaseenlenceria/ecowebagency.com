@@ -20,13 +20,13 @@ export const LanguageProvider = ({ children }) => {
     const segments = pathname.split('/').filter(Boolean)
     const firstSegment = segments[0]
 
-    // Check if first segment is a language code
-    if (firstSegment === 'sv' || firstSegment === 'en') {
-      return firstSegment
+    // Check if first segment is Swedish language code
+    if (firstSegment === 'sv') {
+      return 'sv'
     }
 
-    // Default to Swedish for root paths
-    return 'sv'
+    // Default to English for all other paths (including root and /en)
+    return 'en'
   }
 
   const [language, setLanguage] = useState(() => {
@@ -41,16 +41,30 @@ export const LanguageProvider = ({ children }) => {
     const segments = currentPath.split('/').filter(Boolean)
 
     let newPath
-    if (segments[0] === 'sv' || segments[0] === 'en') {
-      // Replace existing language segment
-      segments[0] = newLanguage
-      newPath = '/' + segments.join('/')
+    // Check if current path has /sv prefix
+    if (segments[0] === 'sv') {
+      // Remove /sv prefix
+      const pathWithoutLanguage = '/' + segments.slice(1).join('/')
+
+      if (newLanguage === 'en') {
+        // Switching to English: use path without any prefix
+        newPath = pathWithoutLanguage || '/'
+      } else {
+        // Switching to Swedish: keep /sv prefix (shouldn't happen, but handle it)
+        newPath = currentPath
+      }
     } else {
-      // Add language prefix
-      newPath = `/${newLanguage}${currentPath}`
+      // Current path is English (no prefix)
+      if (newLanguage === 'sv') {
+        // Switching to Swedish: add /sv prefix
+        newPath = `/sv${currentPath === '/' ? '' : currentPath}`
+      } else {
+        // Switching to English: keep as is (shouldn't happen)
+        newPath = currentPath
+      }
     }
 
-    // Remove trailing slash for consistency
+    // Remove trailing slash for consistency (except for root)
     if (newPath !== '/' && newPath.endsWith('/')) {
       newPath = newPath.slice(0, -1)
     }
@@ -65,10 +79,14 @@ export const LanguageProvider = ({ children }) => {
     }
 
     // Remove existing language prefix if present
-    const cleanPath = path.replace(/^\/(sv|en)/, '')
+    const cleanPath = path.replace(/^\/sv/, '') || '/'
 
-    // Add new language prefix
-    return `/${targetLanguage}${cleanPath}`
+    // For Swedish, add /sv prefix; for English, return clean path
+    if (targetLanguage === 'sv') {
+      return `/sv${cleanPath === '/' ? '' : cleanPath}`
+    } else {
+      return cleanPath
+    }
   }
 
   // Update language state when URL changes
@@ -94,11 +112,11 @@ export const LanguageProvider = ({ children }) => {
     getAlternateLanguage: () => language === 'sv' ? 'en' : 'sv',
     // Helper for getting hreflang URLs
     getHreflangUrls: (currentPath) => {
-      const basePath = currentPath.replace(/^\/(sv|en)/, '')
+      const basePath = currentPath.replace(/^\/sv/, '') || '/'
       return {
-        sv: `/sv${basePath}`,
-        en: `/en${basePath}`,
-        'x-default': `/sv${basePath}`
+        sv: `/sv${basePath === '/' ? '' : basePath}`,
+        en: basePath,
+        'x-default': basePath
       }
     }
   }

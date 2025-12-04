@@ -18,7 +18,7 @@ import {
 } from 'lucide-react'
 
 export default function HomePage() {
-  const { language, isSwedish, isEnglish } = useLanguage()
+  const { language, isSwedish, isEnglish, getLocalizedPath } = useLanguage()
   const content = seoContent.homepage
 
   // Icon mapping for services
@@ -75,7 +75,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/quote"
+              to={getLocalizedPath('quote')}
               className="inline-flex items-center px-8 py-4 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               {cta.primary}
@@ -83,7 +83,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              to="/portfolio"
+              to={getLocalizedPath('portfolio')}
               className="inline-flex items-center px-8 py-4 bg-white text-gray-800 font-semibold rounded-lg border-2 border-gray-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all duration-200"
             >
               {cta.secondary}
@@ -110,7 +110,7 @@ export default function HomePage() {
               return (
                 <Link
                   key={index}
-                  to="/services"
+                  to={getLocalizedPath('services')}
                   className="group p-8 bg-gray-50 rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="flex items-start space-x-4">
@@ -213,7 +213,7 @@ export default function HomePage() {
             {cta.sectionDescription}
           </p>
           <Link
-            to="/quote"
+            to={getLocalizedPath('quote')}
             className="inline-flex items-center px-8 py-4 bg-white text-emerald-700 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             {cta.primary}

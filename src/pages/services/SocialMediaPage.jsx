@@ -1,9 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Share2, CheckCircle, ArrowRight, Users, MessageCircle, TrendingUp } from 'lucide-react'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 export default function SocialMediaPage() {
-  const features = [
+  const { isSwedish, getLocalizedPath } = useLanguage()
+
+  const features = isSwedish ? [
+    'Utveckling av Sociala Medier-strategi',
+    'Innehållsskapande & Kurering',
+    'Community Management & Engagemang',
+    'Hantering av Influencer-partnerskap',
+    'Annonsering i Sociala Medier',
+    'Analys & Prestandarapportering',
+    'Innehållskalender & Schemaläggning',
+    'Hantering av Varumärkesrykte',
+  ] : [
     'Social Media Strategy Development',
     'Content Creation & Curation',
     'Community Management & Engagement',
@@ -14,7 +26,23 @@ export default function SocialMediaPage() {
     'Brand Reputation Management',
   ]
 
-  const benefits = [
+  const benefits = isSwedish ? [
+    {
+      icon: Users,
+      title: 'Bygg Community',
+      description: 'Väx engagerade följare som älskar ert varumärke',
+    },
+    {
+      icon: MessageCircle,
+      title: 'Engagemang',
+      description: 'Skapa konversationer som driver lojalitet',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Driva Resultat',
+      description: 'Konvertera följare till kunder',
+    },
+  ] : [
     {
       icon: Users,
       title: 'Build Community',
@@ -32,6 +60,13 @@ export default function SocialMediaPage() {
     },
   ]
 
+  // Update page meta
+  React.useEffect(() => {
+    document.title = isSwedish
+      ? 'Social Media Management | Eco Web Agency'
+      : 'Social Media Management | Eco Web Agency'
+  }, [isSwedish])
+
   return (
     <div className="bg-stone-50">
       <section className="relative bg-gradient-to-br from-green-600 to-green-800 text-white overflow-hidden">
@@ -43,17 +78,19 @@ export default function SocialMediaPage() {
                 <Share2 className="w-8 h-8" />
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Social Media Management
+                {isSwedish ? 'Social Media Management' : 'Social Media Management'}
               </h1>
               <p className="text-xl text-green-100 mb-8 leading-relaxed">
-                Build engaged communities that drive business results. Strategic social media
-                management that increases brand awareness and converts followers into customers.
+                {isSwedish
+                  ? 'Bygg engagerade communities som driver affärsresultat. Strategisk hantering av sociala medier som ökar varumärkeskännedom och konverterar följare till kunder.'
+                  : 'Build engaged communities that drive business results. Strategic social media management that increases brand awareness and converts followers into customers.'
+                }
               </p>
               <Link
-                to="/quote"
+                to={getLocalizedPath('quote')}
                 className="inline-block px-8 py-4 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-all duration-200 shadow-xl"
               >
-                Start Growing Your Community
+                {isSwedish ? 'Börja Växa Er Community' : 'Start Growing Your Community'}
               </Link>
             </div>
             <div>
@@ -68,15 +105,15 @@ export default function SocialMediaPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center bg-green-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-green-600 mb-2">250K+</div>
-              <div className="text-slate-700">Followers Generated</div>
+              <div className="text-slate-700">{isSwedish ? 'Genererade Följare' : 'Followers Generated'}</div>
             </div>
             <div className="text-center bg-green-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-green-600 mb-2">+800%</div>
-              <div className="text-slate-700">Engagement Increase</div>
+              <div className="text-slate-700">{isSwedish ? 'Ökning i Engagemang' : 'Engagement Increase'}</div>
             </div>
             <div className="text-center bg-green-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-green-600 mb-2">50K</div>
-              <div className="text-slate-700">Monthly Reach</div>
+              <div className="text-slate-700">{isSwedish ? 'Månatlig Räckvidd' : 'Monthly Reach'}</div>
             </div>
           </div>
         </div>
@@ -86,7 +123,7 @@ export default function SocialMediaPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-              Social Media Services
+              {isSwedish ? 'Sociala Medier-tjänster' : 'Social Media Services'}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {features.map((feature, index) => (
@@ -103,7 +140,7 @@ export default function SocialMediaPage() {
       <section className="py-20 lg:py-28 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-            Why Social Media Matters
+            {isSwedish ? 'Varför Sociala Medier Spelar Roll' : 'Why Social Media Matters'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {benefits.map((benefit, index) => {
@@ -126,16 +163,19 @@ export default function SocialMediaPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Build Your Social Presence?
+              {isSwedish ? 'Redo att Bygga Er Närvaro i Sociala Medier?' : 'Ready to Build Your Social Presence?'}
             </h2>
             <p className="text-xl text-green-100 mb-10 leading-relaxed">
-              Let's create a social media strategy that builds community and drives business growth.
+              {isSwedish
+                ? 'Låt oss skapa en sociala medier-strategi som bygger community och driver affärstillväxt.'
+                : "Let's create a social media strategy that builds community and drives business growth."
+              }
             </p>
             <Link
-              to="/quote"
+              to={getLocalizedPath('quote')}
               className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-green-700 rounded-lg text-lg font-semibold hover:bg-green-50 transition-all duration-200 shadow-xl"
             >
-              <span>Get Your Free Consultation</span>
+              <span>{isSwedish ? 'Få Din Kostnadsfria Konsultation' : 'Get Your Free Consultation'}</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

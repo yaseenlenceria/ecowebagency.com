@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function ContactPage() {
+  const { isSwedish, getLocalizedPath } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,26 +34,28 @@ export default function ContactPage() {
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email Us',
+      title: isSwedish ? 'Mejla oss' : 'Email Us',
       details: ['hello@ecowebagency.com', 'support@ecowebagency.com'],
       action: 'mailto:hello@ecowebagency.com',
     },
     {
       icon: Phone,
-      title: 'Call Us',
-      details: ['+1 (234) 567-890', 'Mon-Fri 9am-6pm EST'],
+      title: isSwedish ? 'Ring oss' : 'Call Us',
+      details: ['+1 (234) 567-890', isSwedish ? 'Mån-Fre 9-18 EST' : 'Mon-Fri 9am-6pm EST'],
       action: 'tel:+1234567890',
     },
     {
       icon: MapPin,
-      title: 'Visit Us',
+      title: isSwedish ? 'Besök oss' : 'Visit Us',
       details: ['123 Green Street', 'Eco City, EC 12345'],
       action: null,
     },
     {
       icon: Clock,
-      title: 'Business Hours',
-      details: ['Monday - Friday: 9am - 6pm', 'Weekend: By appointment'],
+      title: isSwedish ? 'Öppettider' : 'Business Hours',
+      details: isSwedish
+        ? ['Måndag - Fredag: 9-18', 'Helg: Efter överenskommelse']
+        : ['Monday - Friday: 9am - 6pm', 'Weekend: By appointment'],
       action: null,
     },
   ]
@@ -64,11 +68,12 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Let's Start a Conversation
+              {isSwedish ? 'Låt oss starta en konversation' : "Let's Start a Conversation"}
             </h1>
             <p className="text-xl text-eco-100 leading-relaxed">
-              Have a project in mind? Questions about our services? We'd love to hear from you.
-              Our team typically responds within 24 hours.
+              {isSwedish
+                ? 'Har du ett projekt i åtanke? Frågor om våra tjänster? Vi skulle gärna höra från dig. Vårt team svarar vanligtvis inom 24 timmar.'
+                : "Have a project in mind? Questions about our services? We'd love to hear from you. Our team typically responds within 24 hours."}
             </p>
           </div>
         </div>
@@ -101,7 +106,7 @@ export default function ContactPage() {
                       href={info.action}
                       className="inline-block mt-3 text-eco-600 font-semibold text-sm hover:text-eco-700"
                     >
-                      Get in touch →
+                      {isSwedish ? 'Kontakta oss →' : 'Get in touch →'}
                     </a>
                   )}
                 </div>
@@ -118,28 +123,31 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                Send Us a Message
+                {isSwedish ? 'Skicka oss ett meddelande' : 'Send Us a Message'}
               </h2>
               <p className="text-lg text-slate-600 mb-8">
-                Fill out the form below and we'll get back to you as soon as possible. For urgent
-                matters, please call us directly.
+                {isSwedish
+                  ? 'Fyll i formuläret nedan så återkommer vi till dig så snart som möjligt. För brådskande ärenden, ring oss direkt.'
+                  : "Fill out the form below and we'll get back to you as soon as possible. For urgent matters, please call us directly."}
               </p>
 
               {submitted ? (
                 <div className="bg-eco-50 border-2 border-eco-200 rounded-xl p-8 text-center">
                   <CheckCircle className="w-16 h-16 text-eco-600 mx-auto mb-4" />
                   <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                    Message Sent Successfully!
+                    {isSwedish ? 'Meddelande skickat!' : 'Message Sent Successfully!'}
                   </h3>
                   <p className="text-slate-600">
-                    Thank you for reaching out. We'll get back to you within 24 hours.
+                    {isSwedish
+                      ? 'Tack för att du hörde av dig. Vi återkommer till dig inom 24 timmar.'
+                      : "Thank you for reaching out. We'll get back to you within 24 hours."}
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">
-                      Full Name *
+                      {isSwedish ? 'Fullständigt namn *' : 'Full Name *'}
                     </label>
                     <input
                       type="text"
@@ -149,14 +157,14 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-eco-500 focus:ring-4 focus:ring-eco-100 transition-all duration-200 outline-none"
-                      placeholder="John Doe"
+                      placeholder={isSwedish ? 'Anna Andersson' : 'John Doe'}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
-                        Email Address *
+                        {isSwedish ? 'E-postadress *' : 'Email Address *'}
                       </label>
                       <input
                         type="email"
@@ -166,13 +174,13 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-eco-500 focus:ring-4 focus:ring-eco-100 transition-all duration-200 outline-none"
-                        placeholder="john@company.com"
+                        placeholder={isSwedish ? 'anna@foretag.se' : 'john@company.com'}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="phone" className="block text-sm font-semibold text-slate-700 mb-2">
-                        Phone Number
+                        {isSwedish ? 'Telefonnummer' : 'Phone Number'}
                       </label>
                       <input
                         type="tel"
@@ -181,14 +189,14 @@ export default function ContactPage() {
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-eco-500 focus:ring-4 focus:ring-eco-100 transition-all duration-200 outline-none"
-                        placeholder="+1 (234) 567-890"
+                        placeholder={isSwedish ? '+46 70 123 45 67' : '+1 (234) 567-890'}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label htmlFor="company" className="block text-sm font-semibold text-slate-700 mb-2">
-                      Company Name
+                      {isSwedish ? 'Företagsnamn' : 'Company Name'}
                     </label>
                     <input
                       type="text"
@@ -197,13 +205,13 @@ export default function ContactPage() {
                       value={formData.company}
                       onChange={handleChange}
                       className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-eco-500 focus:ring-4 focus:ring-eco-100 transition-all duration-200 outline-none"
-                      placeholder="Your Company"
+                      placeholder={isSwedish ? 'Ditt företag' : 'Your Company'}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-2">
-                      Message *
+                      {isSwedish ? 'Meddelande *' : 'Message *'}
                     </label>
                     <textarea
                       id="message"
@@ -213,7 +221,7 @@ export default function ContactPage() {
                       required
                       rows="6"
                       className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-eco-500 focus:ring-4 focus:ring-eco-100 transition-all duration-200 outline-none resize-none"
-                      placeholder="Tell us about your project..."
+                      placeholder={isSwedish ? 'Berätta om ditt projekt...' : 'Tell us about your project...'}
                     />
                   </div>
 
@@ -221,12 +229,14 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full px-8 py-4 bg-eco-600 text-white rounded-lg font-semibold hover:bg-eco-700 transition-all duration-200 shadow-lg shadow-eco-600/30 flex items-center justify-center space-x-2"
                   >
-                    <span>Send Message</span>
+                    <span>{isSwedish ? 'Skicka meddelande' : 'Send Message'}</span>
                     <Send className="w-5 h-5" />
                   </button>
 
                   <p className="text-sm text-slate-500 text-center">
-                    By submitting this form, you agree to our privacy policy.
+                    {isSwedish
+                      ? 'Genom att skicka detta formulär godkänner du vår integritetspolicy.'
+                      : 'By submitting this form, you agree to our privacy policy.'}
                   </p>
                 </form>
               )}
@@ -239,7 +249,7 @@ export default function ContactPage() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white">
                     <MapPin className="w-16 h-16 mx-auto mb-4" />
-                    <p className="text-2xl font-bold">Our Office</p>
+                    <p className="text-2xl font-bold">{isSwedish ? 'Vårt kontor' : 'Our Office'}</p>
                     <p className="text-lg">123 Green Street</p>
                     <p className="text-lg">Eco City, EC 12345</p>
                   </div>
@@ -248,15 +258,23 @@ export default function ContactPage() {
 
               {/* Why Contact Us */}
               <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-slate-200">
-                <h3 className="text-2xl font-bold text-slate-900 mb-6">Why Contact Us?</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">
+                  {isSwedish ? 'Varför kontakta oss?' : 'Why Contact Us?'}
+                </h3>
                 <ul className="space-y-4">
-                  {[
+                  {(isSwedish ? [
+                    'Gratis konsultation och projektutvärdering',
+                    'Anpassade lösningar skräddarsydda efter dina behov',
+                    'Transparent prissättning utan dolda avgifter',
+                    'Snabb svarstid (inom 24 timmar)',
+                    'Expertvägledning från erfarna yrkespersoner',
+                  ] : [
                     'Free consultation and project assessment',
                     'Custom solutions tailored to your needs',
                     'Transparent pricing with no hidden fees',
                     'Fast response time (within 24 hours)',
                     'Expert guidance from experienced professionals',
-                  ].map((item, index) => (
+                  ]).map((item, index) => (
                     <li key={index} className="flex items-start space-x-3">
                       <CheckCircle className="w-6 h-6 text-eco-600 flex-shrink-0 mt-0.5" />
                       <span className="text-slate-700">{item}</span>
@@ -274,11 +292,28 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-              Before You Reach Out
+              {isSwedish ? 'Innan du hör av dig' : 'Before You Reach Out'}
             </h2>
 
             <div className="space-y-6">
-              {[
+              {(isSwedish ? [
+                {
+                  q: 'Vilken information ska jag inkludera i mitt meddelande?',
+                  a: 'Berätta om ditt företag, dina mål och vilka tjänster du är intresserad av. Ju mer detaljer du ger, desto bättre kan vi hjälpa dig.',
+                },
+                {
+                  q: 'Hur snabbt svarar ni?',
+                  a: 'Vi svarar vanligtvis på alla förfrågningar inom 24 timmar på vardagar. För brådskande ärenden, ring oss direkt.',
+                },
+                {
+                  q: 'Erbjuder ni gratis konsultationer?',
+                  a: 'Ja! Vi erbjuder en gratis 30-minuters konsultation för att diskutera ditt projekt och avgöra hur vi kan hjälpa.',
+                },
+                {
+                  q: 'Kan jag boka ett samtal istället för att fylla i formuläret?',
+                  a: 'Absolut! Ring oss på +1 (234) 567-890 eller nämn din föredragna tid i meddelandefältet.',
+                },
+              ] : [
                 {
                   q: 'What information should I include in my message?',
                   a: 'Tell us about your business, your goals, and what services you\'re interested in. The more details you provide, the better we can help you.',
@@ -295,7 +330,7 @@ export default function ContactPage() {
                   q: 'Can I schedule a call instead of filling out the form?',
                   a: 'Absolutely! Call us at +1 (234) 567-890 or mention your preferred time in the message field.',
                 },
-              ].map((faq, index) => (
+              ]).map((faq, index) => (
                 <div key={index} className="bg-slate-50 p-6 rounded-xl border border-slate-200">
                   <h3 className="text-lg font-bold text-slate-900 mb-2">{faq.q}</h3>
                   <p className="text-slate-600 leading-relaxed">{faq.a}</p>

@@ -1,28 +1,49 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../contexts/LanguageContext'
 import { Leaf, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
 
 export default function Footer() {
+  const { isSwedish, getLocalizedPath } = useLanguage()
   const currentYear = new Date().getFullYear()
 
-  const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Pricing', path: '/pricing' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Contact', path: '/contact' },
-  ]
+  const quickLinks = isSwedish
+    ? [
+        { name: 'Hem', path: '' },
+        { name: 'Om oss', path: 'om-oss' },
+        { name: 'Tjänster', path: 'tjanster' },
+        { name: 'Portfolio', path: 'portfolio' },
+        { name: 'Pricing', path: 'pricing' },
+        { name: 'Blog', path: 'blog' },
+        { name: 'Kontakt', path: 'kontakt' },
+      ]
+    : [
+        { name: 'Home', path: '' },
+        { name: 'About Us', path: 'about' },
+        { name: 'Services', path: 'services' },
+        { name: 'Portfolio', path: 'portfolio' },
+        { name: 'Pricing', path: 'pricing' },
+        { name: 'Blog', path: 'blog' },
+        { name: 'Contact', path: 'contact' },
+      ]
 
-  const servicesLinks = [
-    { name: 'SEO', path: '/services/seo' },
-    { name: 'Web Development', path: '/services/web-development' },
-    { name: 'Branding & Design', path: '/services/branding' },
-    { name: 'Ads & Marketing', path: '/services/ads' },
-    { name: 'Social Media', path: '/services/social-media' },
-    { name: 'Custom Software', path: '/services/custom-software' },
-  ]
+  const servicesLinks = isSwedish
+    ? [
+        { name: 'SEO', path: 'services/seo' },
+        { name: 'Webbutveckling', path: 'services/web-development' },
+        { name: 'Varumärkesdesign', path: 'services/branding' },
+        { name: 'Performance Marketing', path: 'services/ads' },
+        { name: 'Social Media Management', path: 'services/social-media' },
+        { name: 'Custom Software / AI Tools', path: 'services/custom-software' },
+      ]
+    : [
+        { name: 'SEO', path: 'services/seo' },
+        { name: 'Web Development', path: 'services/web-development' },
+        { name: 'Branding & Graphic Design', path: 'services/branding' },
+        { name: 'Ads & Performance Marketing', path: 'services/ads' },
+        { name: 'Social Media Management', path: 'services/social-media' },
+        { name: 'Custom Software / AI Tools', path: 'services/custom-software' },
+      ]
 
   const socialLinks = [
     { name: 'Facebook', icon: Facebook, url: 'https://facebook.com' },
@@ -38,7 +59,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center space-x-3 mb-4 group">
+            <Link to={getLocalizedPath('')} className="flex items-center space-x-3 mb-4 group">
               <div className="bg-eco-600 p-2 rounded-lg group-hover:bg-eco-500 transition-colors duration-300">
                 <Leaf className="w-6 h-6 text-white" />
               </div>
@@ -47,22 +68,27 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-slate-400 mb-4 leading-relaxed">
-              Sustainable digital growth for modern businesses. We create high-performance websites
-              and marketing strategies that deliver real results.
+              {isSwedish
+                ? 'Hållbar digital tillväxt för moderna företag. Vi skapar högpresterande webbplatser och marknadsföringsstrategier som levererar verkliga resultat.'
+                : 'Sustainable digital growth for modern businesses. We create high-performance websites and marketing strategies that deliver real results.'}
             </p>
             <p className="text-sm text-eco-400 font-medium">
-              Building a greener digital future, one project at a time.
+              {isSwedish
+                ? 'Bygger en grönare digital framtid, ett projekt i taget.'
+                : 'Building a greener digital future, one project at a time.'}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-bold text-lg mb-4">Quick Links</h4>
+            <h4 className="text-white font-bold text-lg mb-4">
+              {isSwedish ? 'Snabblänkar' : 'Quick Links'}
+            </h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
-                    to={link.path}
+                    to={getLocalizedPath(link.path)}
                     className="text-slate-400 hover:text-eco-400 transition-colors duration-200 inline-block"
                   >
                     {link.name}
@@ -74,12 +100,14 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-white font-bold text-lg mb-4">Our Services</h4>
+            <h4 className="text-white font-bold text-lg mb-4">
+              {isSwedish ? 'Våra Tjänster' : 'Our Services'}
+            </h4>
             <ul className="space-y-2.5">
               {servicesLinks.map((link) => (
                 <li key={link.path}>
                   <Link
-                    to={link.path}
+                    to={getLocalizedPath(link.path)}
                     className="text-slate-400 hover:text-eco-400 transition-colors duration-200 inline-block"
                   >
                     {link.name}
@@ -91,7 +119,9 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-white font-bold text-lg mb-4">Get In Touch</h4>
+            <h4 className="text-white font-bold text-lg mb-4">
+              {isSwedish ? 'Kontakta Oss' : 'Get In Touch'}
+            </h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <Mail className="w-5 h-5 text-eco-400 mt-0.5 flex-shrink-0" />
@@ -121,7 +151,9 @@ export default function Footer() {
 
             {/* Social Media */}
             <div className="mt-6">
-              <h5 className="text-white font-semibold text-sm mb-3">Follow Us</h5>
+              <h5 className="text-white font-semibold text-sm mb-3">
+                {isSwedish ? 'Följ Oss' : 'Follow Us'}
+              </h5>
               <div className="flex space-x-3">
                 {socialLinks.map((social) => {
                   const Icon = social.icon
@@ -149,20 +181,20 @@ export default function Footer() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-slate-500 text-sm text-center md:text-left">
-              &copy; {currentYear} Eco Web Agency. All rights reserved.
+              &copy; {currentYear} Eco Web Agency. {isSwedish ? 'Alla rättigheter förbehållna.' : 'All rights reserved.'}
             </p>
             <div className="flex items-center space-x-6 text-sm">
               <Link
-                to="/privacy"
+                to={getLocalizedPath('privacy')}
                 className="text-slate-500 hover:text-eco-400 transition-colors duration-200"
               >
-                Privacy Policy
+                {isSwedish ? 'Integritetspolicy' : 'Privacy Policy'}
               </Link>
               <Link
-                to="/terms"
+                to={getLocalizedPath('terms')}
                 className="text-slate-500 hover:text-eco-400 transition-colors duration-200"
               >
-                Terms of Service
+                {isSwedish ? 'Användarvillkor' : 'Terms of Service'}
               </Link>
             </div>
           </div>

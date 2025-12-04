@@ -1,9 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Palette, CheckCircle, ArrowRight, Eye, Heart, Sparkles } from 'lucide-react'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 export default function BrandingPage() {
-  const features = [
+  const { isSwedish, getLocalizedPath } = useLanguage()
+
+  const features = isSwedish ? [
+    'Varumärkesstrategi & Positionering',
+    'Logotypdesign & Identitetssystem',
+    'Varumärkesriktlinjer & Stilguider',
+    'Design av Marknadsföringsmaterial',
+    'Grafik & Mallar för Sociala Medier',
+    'Förpackningsdesign',
+    'Visitkort & Brevpapper',
+    'Varumärkesförnyelse & Redesign',
+  ] : [
     'Brand Strategy & Positioning',
     'Logo Design & Identity Systems',
     'Brand Guidelines & Style Guides',
@@ -14,7 +26,23 @@ export default function BrandingPage() {
     'Brand Refresh & Redesign',
   ]
 
-  const benefits = [
+  const benefits = isSwedish ? [
+    {
+      icon: Eye,
+      title: 'Sticka Ut',
+      description: 'Differentiering från konkurrenter med unikt varumärke',
+    },
+    {
+      icon: Heart,
+      title: 'Bygg Förtroende',
+      description: 'Professionell design bygger trovärdighet',
+    },
+    {
+      icon: Sparkles,
+      title: 'Minnesvärt',
+      description: 'Skapa bestående intryck som driver igenkänning',
+    },
+  ] : [
     {
       icon: Eye,
       title: 'Stand Out',
@@ -32,6 +60,13 @@ export default function BrandingPage() {
     },
   ]
 
+  // Update page meta
+  React.useEffect(() => {
+    document.title = isSwedish
+      ? 'Varumärkesdesign & Grafisk Design | Eco Web Agency'
+      : 'Branding & Graphic Design | Eco Web Agency'
+  }, [isSwedish])
+
   return (
     <div className="bg-stone-50">
       <section className="relative bg-gradient-to-br from-pink-600 to-pink-800 text-white overflow-hidden">
@@ -43,17 +78,19 @@ export default function BrandingPage() {
                 <Palette className="w-8 h-8" />
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Branding & Graphic Design
+                {isSwedish ? 'Varumärkesdesign & Grafisk Design' : 'Branding & Graphic Design'}
               </h1>
               <p className="text-xl text-pink-100 mb-8 leading-relaxed">
-                Stand out with compelling visual identity. Professional branding that captures your
-                unique story and resonates with your target audience.
+                {isSwedish
+                  ? 'Sticka ut med övertygande visuell identitet. Professionellt varumärke som fångar er unika historia och resonerar med er målgrupp.'
+                  : 'Stand out with compelling visual identity. Professional branding that captures your unique story and resonates with your target audience.'
+                }
               </p>
               <Link
-                to="/quote"
+                to={getLocalizedPath('quote')}
                 className="inline-block px-8 py-4 bg-white text-pink-700 rounded-lg font-semibold hover:bg-pink-50 transition-all duration-200 shadow-xl"
               >
-                Start Your Brand Journey
+                {isSwedish ? 'Starta Er Varumärkesresa' : 'Start Your Brand Journey'}
               </Link>
             </div>
             <div>
@@ -68,15 +105,15 @@ export default function BrandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center bg-pink-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-pink-600 mb-2">98%</div>
-              <div className="text-slate-700">Client Satisfaction</div>
+              <div className="text-slate-700">{isSwedish ? 'Kundnöjdhet' : 'Client Satisfaction'}</div>
             </div>
             <div className="text-center bg-pink-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-pink-600 mb-2">150+</div>
-              <div className="text-slate-700">Brands Created</div>
+              <div className="text-slate-700">{isSwedish ? 'Skapade Varumärken' : 'Brands Created'}</div>
             </div>
             <div className="text-center bg-pink-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-pink-600 mb-2">95%</div>
-              <div className="text-slate-700">Brand Recognition</div>
+              <div className="text-slate-700">{isSwedish ? 'Varumärkeskännedom' : 'Brand Recognition'}</div>
             </div>
           </div>
         </div>
@@ -86,7 +123,7 @@ export default function BrandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-              Branding Services
+              {isSwedish ? 'Varumärkestjänster' : 'Branding Services'}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {features.map((feature, index) => (
@@ -103,7 +140,7 @@ export default function BrandingPage() {
       <section className="py-20 lg:py-28 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-            Why Branding Matters
+            {isSwedish ? 'Varför Varumärke Spelar Roll' : 'Why Branding Matters'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {benefits.map((benefit, index) => {
@@ -126,16 +163,19 @@ export default function BrandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Build a Memorable Brand?
+              {isSwedish ? 'Redo att Bygga Ett Minnesvärt Varumärke?' : 'Ready to Build a Memorable Brand?'}
             </h2>
             <p className="text-xl text-pink-100 mb-10 leading-relaxed">
-              Let's create a brand identity that captures your unique story and drives business growth.
+              {isSwedish
+                ? 'Låt oss skapa en varumärkesidentitet som fångar er unika historia och driver affärstillväxt.'
+                : "Let's create a brand identity that captures your unique story and drives business growth."
+              }
             </p>
             <Link
-              to="/quote"
+              to={getLocalizedPath('quote')}
               className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-pink-700 rounded-lg text-lg font-semibold hover:bg-pink-50 transition-all duration-200 shadow-xl"
             >
-              <span>Get Your Free Consultation</span>
+              <span>{isSwedish ? 'Få Din Kostnadsfria Konsultation' : 'Get Your Free Consultation'}</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

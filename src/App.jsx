@@ -59,57 +59,57 @@ function App() {
         <MainLayout>
         <Routes>
           {/* Main Pages with language prefixes */}
-          <Route path="/:lang(sv|en)?" element={<HomePage />} />
-          <Route path="/:lang(sv|en)/about" element={<AboutPage />} />
-          <Route path="/:lang(sv|en)/om-oss" element={<AboutPage />} />
-          <Route path="/:lang(sv|en)/services" element={<ServicesPage />} />
-          <Route path="/:lang(sv|en)/tjanster" element={<ServicesPage />} />
-          <Route path="/:lang(sv|en)/portfolio" element={<PortfolioPage />} />
-          <Route path="/:lang(sv|en)/pricing" element={<PricingPage />} />
-          <Route path="/:lang(sv|en)/blog" element={<BlogPage />} />
-          <Route path="/:lang(sv|en)/contact" element={<ContactPage />} />
-          <Route path="/:lang(sv|en)/kontakt" element={<ContactPage />} />
-          <Route path="/:lang(sv|en)/quote" element={<QuotePage />} />
+          <Route path="/:lang(sv)?" element={<HomePage />} />
+          <Route path="/:lang(sv)?/about" element={<AboutPage />} />
+          <Route path="/:lang(sv)?/om-oss" element={<AboutPage />} />
+          <Route path="/:lang(sv)?/services" element={<ServicesPage />} />
+          <Route path="/:lang(sv)?/tjanster" element={<ServicesPage />} />
+          <Route path="/:lang(sv)?/portfolio" element={<PortfolioPage />} />
+          <Route path="/:lang(sv)?/pricing" element={<PricingPage />} />
+          <Route path="/:lang(sv)?/blog" element={<BlogPage />} />
+          <Route path="/:lang(sv)?/contact" element={<ContactPage />} />
+          <Route path="/:lang(sv)?/kontakt" element={<ContactPage />} />
+          <Route path="/:lang(sv)?/quote" element={<QuotePage />} />
 
           {/* Service Detail Pages */}
-          <Route path="/:lang(sv|en)/services/seo" element={<SEOPage />} />
-          <Route path="/:lang(sv|en)/services/web-development" element={<WebDevelopmentPage />} />
-          <Route path="/:lang(sv|en)/services/branding" element={<BrandingPage />} />
-          <Route path="/:lang(sv|en)/services/ads" element={<AdsPage />} />
-          <Route path="/:lang(sv|en)/services/social-media" element={<SocialMediaPage />} />
-          <Route path="/:lang(sv|en)/services/custom-software" element={<CustomSoftwarePage />} />
+          <Route path="/:lang(sv)?/services/seo" element={<SEOPage />} />
+          <Route path="/:lang(sv)?/services/web-development" element={<WebDevelopmentPage />} />
+          <Route path="/:lang(sv)?/services/branding" element={<BrandingPage />} />
+          <Route path="/:lang(sv)?/services/ads" element={<AdsPage />} />
+          <Route path="/:lang(sv)?/services/social-media" element={<SocialMediaPage />} />
+          <Route path="/:lang(sv)?/services/custom-software" element={<CustomSoftwarePage />} />
 
           {/* Legal Pages */}
-          <Route path="/:lang(sv|en)/privacy" element={<PrivacyPage />} />
-          <Route path="/:lang(sv|en)/terms" element={<TermsPage />} />
-          <Route path="/:lang(sv|en)/integritet" element={<PrivacyPage />} />
-          <Route path="/:lang(sv|en)/villkor" element={<TermsPage />} />
+          <Route path="/:lang(sv)?/privacy" element={<PrivacyPage />} />
+          <Route path="/:lang(sv)?/terms" element={<TermsPage />} />
+          <Route path="/:lang(sv)?/integritet" element={<PrivacyPage />} />
+          <Route path="/:lang(sv)?/villkor" element={<TermsPage />} />
 
           {/* Calculator Hub */}
-          <Route path="/:lang(sv|en)/calculators" element={<CalculatorsHub />} />
-          <Route path="/:lang(sv|en)/kalkylatorer" element={<CalculatorsHub />} />
+          <Route path="/:lang(sv)?/calculators" element={<CalculatorsHub />} />
+          <Route path="/:lang(sv)?/kalkylatorer" element={<CalculatorsHub />} />
 
           {/* Individual Calculator Pages */}
-          <Route path="/:lang(sv|en)/calculators/carbon-footprint" element={<CarbonFootprintCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/shipping-emissions" element={<ShippingEmissionsCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/solar-energy" element={<SolarEnergyCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/plastic-waste" element={<PlasticWasteCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/water-usage" element={<WaterUsageCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/household-energy" element={<HouseholdEnergyCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/electric-vehicle" element={<ElectricVehicleCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/green-building" element={<GreenBuildingCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/tree-offset" element={<TreeOffsetCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/sustainable-packaging" element={<SustainablePackagingCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/waste-recycling" element={<WasteRecyclingCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/green-commute" element={<GreenCommuteCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/home-insulation" element={<HomeInsulationCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/carbon-neutral-business" element={<CarbonNeutralBusinessCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/food-carbon" element={<FoodCarbonCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/appliance-efficiency" element={<ApplianceEfficiencyCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/rainwater-harvesting" element={<RainwaterHarvestingCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/composting-impact" element={<CompostingImpactCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/air-quality" element={<AirQualityCalculator />} />
-          <Route path="/:lang(sv|en)/calculators/energy-star" element={<EnergyStarCalculator />} />
+          <Route path="/:lang(sv)?/calculators/carbon-footprint" element={<CarbonFootprintCalculator />} />
+          <Route path="/:lang(sv)?/calculators/shipping-emissions" element={<ShippingEmissionsCalculator />} />
+          <Route path="/:lang(sv)?/calculators/solar-energy" element={<SolarEnergyCalculator />} />
+          <Route path="/:lang(sv)?/calculators/plastic-waste" element={<PlasticWasteCalculator />} />
+          <Route path="/:lang(sv)?/calculators/water-usage" element={<WaterUsageCalculator />} />
+          <Route path="/:lang(sv)?/calculators/household-energy" element={<HouseholdEnergyCalculator />} />
+          <Route path="/:lang(sv)?/calculators/electric-vehicle" element={<ElectricVehicleCalculator />} />
+          <Route path="/:lang(sv)?/calculators/green-building" element={<GreenBuildingCalculator />} />
+          <Route path="/:lang(sv)?/calculators/tree-offset" element={<TreeOffsetCalculator />} />
+          <Route path="/:lang(sv)?/calculators/sustainable-packaging" element={<SustainablePackagingCalculator />} />
+          <Route path="/:lang(sv)?/calculators/waste-recycling" element={<WasteRecyclingCalculator />} />
+          <Route path="/:lang(sv)?/calculators/green-commute" element={<GreenCommuteCalculator />} />
+          <Route path="/:lang(sv)?/calculators/home-insulation" element={<HomeInsulationCalculator />} />
+          <Route path="/:lang(sv)?/calculators/carbon-neutral-business" element={<CarbonNeutralBusinessCalculator />} />
+          <Route path="/:lang(sv)?/calculators/food-carbon" element={<FoodCarbonCalculator />} />
+          <Route path="/:lang(sv)?/calculators/appliance-efficiency" element={<ApplianceEfficiencyCalculator />} />
+          <Route path="/:lang(sv)?/calculators/rainwater-harvesting" element={<RainwaterHarvestingCalculator />} />
+          <Route path="/:lang(sv)?/calculators/composting-impact" element={<CompostingImpactCalculator />} />
+          <Route path="/:lang(sv)?/calculators/air-quality" element={<AirQualityCalculator />} />
+          <Route path="/:lang(sv)?/calculators/energy-star" element={<EnergyStarCalculator />} />
         </Routes>
         </MainLayout>
       </div>

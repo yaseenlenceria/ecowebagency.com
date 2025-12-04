@@ -1,9 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Code, CheckCircle, ArrowRight, Zap, Shield, Smartphone } from 'lucide-react'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 export default function WebDevelopmentPage() {
-  const features = [
+  const { isSwedish, getLocalizedPath } = useLanguage()
+
+  const features = isSwedish ? [
+    'Skräddarsydd Webbdesign & Utveckling',
+    'E-handelslösningar (Shopify, WooCommerce)',
+    'Webapplikationsutveckling',
+    'Innehållshanteringssystem (WordPress, Anpassad CMS)',
+    'API-utveckling & Integration',
+    'Mobilresponsiv Design',
+    'Prestandaoptimering',
+    'Löpande Underhåll & Support',
+  ] : [
     'Custom Website Design & Development',
     'E-Commerce Solutions (Shopify, WooCommerce)',
     'Web Application Development',
@@ -14,7 +26,23 @@ export default function WebDevelopmentPage() {
     'Ongoing Maintenance & Support',
   ]
 
-  const benefits = [
+  const benefits = isSwedish ? [
+    {
+      icon: Zap,
+      title: 'Blixtsnabbt',
+      description: 'Optimerad för hastighet och prestanda',
+    },
+    {
+      icon: Shield,
+      title: 'Säkert & Pålitligt',
+      description: 'Byggd med bästa säkerhetspraxis',
+    },
+    {
+      icon: Smartphone,
+      title: 'Mobil-först',
+      description: 'Perfekt på alla enheter och skärmstorlekar',
+    },
+  ] : [
     {
       icon: Zap,
       title: 'Lightning Fast',
@@ -32,6 +60,13 @@ export default function WebDevelopmentPage() {
     },
   ]
 
+  // Update page meta
+  React.useEffect(() => {
+    document.title = isSwedish
+      ? 'Webbutveckling & Skräddarsydda Webbplatser | Eco Web Agency'
+      : 'Web Development & Custom Websites | Eco Web Agency'
+  }, [isSwedish])
+
   return (
     <div className="bg-stone-50">
       <section className="relative bg-gradient-to-br from-purple-600 to-purple-800 text-white overflow-hidden">
@@ -43,24 +78,26 @@ export default function WebDevelopmentPage() {
                 <Code className="w-8 h-8" />
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Web Development & Custom Websites
+                {isSwedish ? 'Webbutveckling & Skräddarsydda Webbplatser' : 'Web Development & Custom Websites'}
               </h1>
               <p className="text-xl text-purple-100 mb-8 leading-relaxed">
-                Beautiful, fast, and conversion-optimized websites built with modern technologies.
-                From simple landing pages to complex web applications.
+                {isSwedish
+                  ? 'Vackra, snabba och konverteringsoptimerade webbplatser byggda med modern teknik. Från enkla landningssidor till komplexa webbapplikationer.'
+                  : 'Beautiful, fast, and conversion-optimized websites built with modern technologies. From simple landing pages to complex web applications.'
+                }
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/quote"
+                  to={getLocalizedPath('quote')}
                   className="px-8 py-4 bg-white text-purple-700 rounded-lg font-semibold hover:bg-purple-50 transition-all duration-200 shadow-xl text-center"
                 >
-                  Get Your Free Quote
+                  {isSwedish ? 'Få Din Kostnadsfria Offert' : 'Get Your Free Quote'}
                 </Link>
                 <Link
-                  to="/portfolio"
+                  to={getLocalizedPath('portfolio')}
                   className="px-8 py-4 bg-purple-700 text-white rounded-lg font-semibold hover:bg-purple-800 transition-all duration-200 border-2 border-white/20 text-center"
                 >
-                  View Our Work
+                  {isSwedish ? 'Se Vårt Arbete' : 'View Our Work'}
                 </Link>
               </div>
             </div>
@@ -75,21 +112,21 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Proven Results
+              {isSwedish ? 'Bevisade Resultat' : 'Proven Results'}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center bg-purple-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-purple-600 mb-2">+350%</div>
-              <div className="text-slate-700">Conversion Rate Increase</div>
+              <div className="text-slate-700">{isSwedish ? 'Konverteringsökning' : 'Conversion Rate Increase'}</div>
             </div>
             <div className="text-center bg-purple-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-purple-600 mb-2">2.5s</div>
-              <div className="text-slate-700">Average Page Load Time</div>
+              <div className="text-slate-700">{isSwedish ? 'Genomsnittlig Laddningstid' : 'Average Page Load Time'}</div>
             </div>
             <div className="text-center bg-purple-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-purple-600 mb-2">200+</div>
-              <div className="text-slate-700">Websites Delivered</div>
+              <div className="text-slate-700">{isSwedish ? 'Levererade Webbplatser' : 'Websites Delivered'}</div>
             </div>
           </div>
         </div>
@@ -99,7 +136,7 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-              What's Included
+              {isSwedish ? 'Vad Ingår' : "What's Included"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {features.map((feature, index) => (
@@ -116,7 +153,7 @@ export default function WebDevelopmentPage() {
       <section className="py-20 lg:py-28 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-            Why Choose Our Web Development Services
+            {isSwedish ? 'Varför Välja Våra Webbutvecklingstjänster' : 'Why Choose Our Web Development Services'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {benefits.map((benefit, index) => {
@@ -139,16 +176,19 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Build Your Dream Website?
+              {isSwedish ? 'Redo att Bygga Din Drömwebbplats?' : 'Ready to Build Your Dream Website?'}
             </h2>
             <p className="text-xl text-purple-100 mb-10 leading-relaxed">
-              Let's create a website that not only looks amazing but drives real business results.
+              {isSwedish
+                ? 'Låt oss skapa en webbplats som inte bara ser fantastisk ut utan också driver verkliga affärsresultat.'
+                : "Let's create a website that not only looks amazing but drives real business results."
+              }
             </p>
             <Link
-              to="/quote"
+              to={getLocalizedPath('quote')}
               className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-purple-700 rounded-lg text-lg font-semibold hover:bg-purple-50 transition-all duration-200 shadow-xl"
             >
-              <span>Get Your Free Quote</span>
+              <span>{isSwedish ? 'Få Din Kostnadsfria Offert' : 'Get Your Free Quote'}</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

@@ -1,9 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { TrendingUp, CheckCircle, ArrowRight, DollarSign, Target, LineChart } from 'lucide-react'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 export default function AdsPage() {
-  const features = [
+  const { isSwedish, getLocalizedPath } = useLanguage()
+
+  const features = isSwedish ? [
+    'Google Ads-hantering (Sök, Display, Shopping)',
+    'Meta Ads (Facebook & Instagram)',
+    'LinkedIn-annonsering för B2B',
+    'Remarketing & Retargeting-kampanjer',
+    'Optimering av Landningssidor',
+    'A/B-testning & Konverteringsoptimering',
+    'Målgruppsanalys & Inriktning',
+    'Realtidsanalys & Rapportering',
+  ] : [
     'Google Ads Management (Search, Display, Shopping)',
     'Meta Ads (Facebook & Instagram)',
     'LinkedIn Advertising for B2B',
@@ -14,7 +26,23 @@ export default function AdsPage() {
     'Real-Time Analytics & Reporting',
   ]
 
-  const benefits = [
+  const benefits = isSwedish ? [
+    {
+      icon: DollarSign,
+      title: 'Hög ROI',
+      description: 'Genomsnittlig 8.5x avkastning på annonsutgifter',
+    },
+    {
+      icon: Target,
+      title: 'Exakt Inriktning',
+      description: 'Nå era idealkunder vid rätt tidpunkt',
+    },
+    {
+      icon: LineChart,
+      title: 'Datadriven',
+      description: 'Varje beslut backat av analys',
+    },
+  ] : [
     {
       icon: DollarSign,
       title: 'High ROI',
@@ -32,6 +60,13 @@ export default function AdsPage() {
     },
   ]
 
+  // Update page meta
+  React.useEffect(() => {
+    document.title = isSwedish
+      ? 'Annonsering & Performance Marketing | Eco Web Agency'
+      : 'Ads & Performance Marketing | Eco Web Agency'
+  }, [isSwedish])
+
   return (
     <div className="bg-stone-50">
       <section className="relative bg-gradient-to-br from-orange-600 to-orange-800 text-white overflow-hidden">
@@ -43,17 +78,19 @@ export default function AdsPage() {
                 <TrendingUp className="w-8 h-8" />
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Ads & Performance Marketing
+                {isSwedish ? 'Annonsering & Performance Marketing' : 'Ads & Performance Marketing'}
               </h1>
               <p className="text-xl text-orange-100 mb-8 leading-relaxed">
-                ROI-focused advertising campaigns that drive real business growth. We optimize every
-                dollar for maximum return on investment.
+                {isSwedish
+                  ? 'ROI-fokuserade annonskampanjer som driver verklig affärstillväxt. Vi optimerar varje krona för maximal avkastning på investeringen.'
+                  : 'ROI-focused advertising campaigns that drive real business growth. We optimize every dollar for maximum return on investment.'
+                }
               </p>
               <Link
-                to="/quote"
+                to={getLocalizedPath('quote')}
                 className="inline-block px-8 py-4 bg-white text-orange-700 rounded-lg font-semibold hover:bg-orange-50 transition-all duration-200 shadow-xl"
               >
-                Get Your Free Strategy Session
+                {isSwedish ? 'Få Din Kostnadsfria Strategisession' : 'Get Your Free Strategy Session'}
               </Link>
             </div>
             <div>
@@ -68,15 +105,15 @@ export default function AdsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center bg-orange-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-orange-600 mb-2">8.5x</div>
-              <div className="text-slate-700">Average ROAS</div>
+              <div className="text-slate-700">{isSwedish ? 'Genomsnittlig ROAS' : 'Average ROAS'}</div>
             </div>
             <div className="text-center bg-orange-50 rounded-2xl p-8">
-              <div className="text-5xl font-bold text-orange-600 mb-2">$50M+</div>
-              <div className="text-slate-700">Ad Spend Managed</div>
+              <div className="text-5xl font-bold text-orange-600 mb-2">{isSwedish ? '500M+ kr' : '$50M+'}</div>
+              <div className="text-slate-700">{isSwedish ? 'Hanterade Annonsutgifter' : 'Ad Spend Managed'}</div>
             </div>
             <div className="text-center bg-orange-50 rounded-2xl p-8">
               <div className="text-5xl font-bold text-orange-600 mb-2">45%</div>
-              <div className="text-slate-700">Lower CPA</div>
+              <div className="text-slate-700">{isSwedish ? 'Lägre CPA' : 'Lower CPA'}</div>
             </div>
           </div>
         </div>
@@ -86,7 +123,7 @@ export default function AdsPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-              Performance Marketing Services
+              {isSwedish ? 'Performance Marketing-tjänster' : 'Performance Marketing Services'}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {features.map((feature, index) => (
@@ -103,7 +140,7 @@ export default function AdsPage() {
       <section className="py-20 lg:py-28 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-12 text-center">
-            Why Choose Our Ad Management
+            {isSwedish ? 'Varför Välja Vår Annonshantering' : 'Why Choose Our Ad Management'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {benefits.map((benefit, index) => {
@@ -126,16 +163,19 @@ export default function AdsPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Scale Your Business with Ads?
+              {isSwedish ? 'Redo att Skala Er Affär med Annonser?' : 'Ready to Scale Your Business with Ads?'}
             </h2>
             <p className="text-xl text-orange-100 mb-10 leading-relaxed">
-              Let's create a performance marketing strategy that drives profitable growth.
+              {isSwedish
+                ? 'Låt oss skapa en performance marketing-strategi som driver lönsam tillväxt.'
+                : "Let's create a performance marketing strategy that drives profitable growth."
+              }
             </p>
             <Link
-              to="/quote"
+              to={getLocalizedPath('quote')}
               className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-orange-700 rounded-lg text-lg font-semibold hover:bg-orange-50 transition-all duration-200 shadow-xl"
             >
-              <span>Get Your Free Consultation</span>
+              <span>{isSwedish ? 'Få Din Kostnadsfria Konsultation' : 'Get Your Free Consultation'}</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
